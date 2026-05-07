@@ -109,7 +109,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
               alt="Ahid Logo"
               width={360}
               height={240}
-              className="w-full h-full object-cover"
+              className="w-[50vmin] h-[50vmin] object-cover"
               priority
             />
           </div>
