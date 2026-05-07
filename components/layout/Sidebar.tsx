@@ -96,20 +96,20 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
 
   return (
     <div
-      className={`flex flex-col h-full dark:bg-[var(--sidebar-bg)] bg-white border-r border-[var(--border-color)] w-64 transition-all duration-300 fixed lg:static inset-y-0 left-0 z-50 ${
+      className={`flex flex-col h-full dark:bg-[var(--sidebar-bg)] bg-[var(--sidebar-bg)] border-r border-[var(--border-color)] w-64 transition-all duration-300 fixed lg:static inset-y-0 left-0 z-50 ${
         isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       }`}
     >
       {/* Logo */}
       <div className="flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6 border-b border-[var(--border-color)]">
         <div className="flex items-center gap-2.5">
-          <div className="relative w-fit h-fit">
+          <div className="relative w-full h-full">
             <Image
               src="/ahid_logo.png"
               alt="Ahid Logo"
               width={360}
               height={240}
-              className="w-[1vmin] h-[1vmin] object-cover"
+              className="w-[40px] h-full object-cover"
               priority
             />
           </div>
