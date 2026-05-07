@@ -55,45 +55,45 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-3 sm:p-4">
       <div className="w-full max-w-md">
         {/* Login Card */}
-        <div className="dark:bg-[var(--bg-card)] rounded-2xl shadow-xl border border-gray-400 p-8 transition-colors">
+        <div className="dark:bg-[var(--bg-card)] rounded-xl sm:rounded-2xl shadow-xl border border-gray-400 p-6 sm:p-8 transition-colors">
           {/* Logo and Title */}
-          <div className="text-center mb-8">
-            <div className="flex justify-center mb-4">
-              <div className="relative w-14 h-14">
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="flex justify-center mb-3 sm:mb-4">
+              <div className="relative w-12 h-12 sm:w-14 sm:h-14">
                 <Image
                   src="/ahid_logo.png"
                   alt="Ahid Logo"
                   fill
-                  sizes="56px"
+                  sizes="(max-width: 640px) 48px, 56px"
                   className="object-contain"
                   priority
                 />
               </div>
             </div>
-            <h1 className="text-2xl font-semibold text-[var(--text-primary)] mb-1">
+            <h1 className="text-xl sm:text-2xl font-semibold text-[var(--text-primary)] mb-1">
               Welcome Back
             </h1>
-            <p className="text-sm text-[var(--text-secondary)]">
+            <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
               Sign in to your admin account
             </p>
           </div>
 
           {/* Error Alert */}
           {error && (
-            <div className="mb-6 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
+            <div className="mb-5 sm:mb-6 p-2.5 sm:p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
               <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-red-700">{error}</p>
+              <p className="text-xs sm:text-sm text-red-700">{error}</p>
             </div>
           )}
 
           {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-[var(--text-primary)] mb-2">
+              <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-[var(--text-primary)] mb-2">
                 Email Address
               </label>
               <div className="relative">
@@ -105,7 +105,7 @@ export default function LoginPage() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-2.5 text-sm border border-[var(--border-color)] rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--primary)] focus:border-[var(--primary)] transition-all"
+                  className="w-full pl-10 pr-4 py-2 sm:py-2.5 text-xs sm:text-sm border border-[var(--border-color)] rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--primary)] focus:border-[var(--primary)] transition-all"
                   placeholder="admin@ahid.com"
                 />
               </div>
@@ -113,7 +113,7 @@ export default function LoginPage() {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-[var(--text-primary)] mb-2">
+              <label htmlFor="password" className="block text-xs sm:text-sm font-medium text-[var(--text-primary)] mb-2">
                 Password
               </label>
               <div className="relative">
@@ -125,7 +125,7 @@ export default function LoginPage() {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-12 py-2.5 text-sm border border-[var(--border-color)] rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--primary)] focus:border-[var(--primary)] transition-all"
+                  className="w-full pl-10 pr-12 py-2 sm:py-2.5 text-xs sm:text-sm border border-[var(--border-color)] rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--primary)] focus:border-[var(--primary)] transition-all"
                   placeholder="••••••••"
                 />
                 <button
@@ -146,7 +146,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-2.5 px-4 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white text-sm font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-2 sm:py-2.5 px-4 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white text-xs sm:text-sm font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <>
@@ -160,13 +160,13 @@ export default function LoginPage() {
           </form>
 
           {/* Footer */}
-          <div className="mt-6 text-center text-xs text-[var(--text-tertiary)]">
+          <div className="mt-5 sm:mt-6 text-center text-xs text-[var(--text-tertiary)]">
             <p>Admin access only • Ahid Platform</p>
           </div>
         </div>
 
         {/* Additional Info */}
-        <div className="mt-4 text-center">
+        <div className="mt-3 sm:mt-4 text-center">
           <p className="text-xs text-white/80">
             © 2026 Ahid. All rights reserved.
           </p>

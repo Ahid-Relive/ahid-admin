@@ -65,7 +65,7 @@ const navigation: NavItem[] = [
   },
 ];
 
-export function Sidebar() {
+export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const pathname = usePathname();
   const { admin, logout, hasPermission, isSuperAdmin } = useAuth();
   const [expandedItems, setExpandedItems] = useState<string[]>(['Analytics']);
@@ -74,6 +74,13 @@ export function Sidebar() {
     setExpandedItems((prev) =>
       prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name]
     );
+  };
+
+  const handleLinkClick = () => {
+    // Close sidebar on mobile when a link is clicked
+    if (window.innerWidth < 1024) {
+      onClose();
+    }
   };
 
   const canAccessItem = (item: NavItem): boolean => {
@@ -88,11 +95,15 @@ export function Sidebar() {
   };
 
   return (
-    <div className="flex flex-col h-full dark:bg-[var(--sidebar-bg)] border-r border-[var(--border-color)] w-64 transition-colors">
+    <div
+      className={`flex flex-col h-full dark:bg-[var(--sidebar-bg)] border-r border-[var(--border-color)] w-64 transition-all duration-300 fixed lg:static inset-y-0 left-0 z-50 ${
+        isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+      }`}
+    >
       {/* Logo */}
-      <div className="flex items-center h-16 px-6 border-b border-[var(--border-color)]">
+      <div className="flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6 border-b border-[var(--border-color)]">
         <div className="flex items-center gap-2.5">
-          <div className="relative w-fit h-6">
+          <div className="relative w-fit h-5 sm:h-6">
             <Image
               src="/ahid_logo.png"
               alt="Ahid Logo"
@@ -102,10 +113,17 @@ export function Sidebar() {
               priority
             />
           </div>
-          {/* <span className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>
-            Ahid Admin
-          </span> */}
         </div>
+        {/* Close button for mobile */}
+        <button
+          onClick={onClose}
+          className="lg:hidden p-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-hover)] transition-all"
+          aria-label="Close menu"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
 
       {/* Navigation */}
@@ -150,6 +168,7 @@ export function Sidebar() {
                             <li key={child.name}>
                               <Link
                                 href={child.href}
+                                onClick={handleLinkClick}
                                 className={`flex items-center gap-2.5 px-3 py-2 text-sm font-medium rounded-lg transition-all ${
                                   childActive
                                     ? 'bg-[var(--sidebar-active)] text-[var(--primary)]'
@@ -168,6 +187,7 @@ export function Sidebar() {
                 ) : (
                   <Link
                     href={item.href}
+                    onClick={handleLinkClick}
                     className={`flex items-center gap-2.5 px-3 py-2 text-sm font-medium rounded-lg transition-all ${
                       active
                         ? 'bg-[var(--sidebar-active)] text-[var(--primary)]'
@@ -185,13 +205,13 @@ export function Sidebar() {
       </nav>
 
       {/* User Profile & Logout */}
-      <div className="border-t border-[var(--border-color)] p-4">
-        <div className="flex items-center gap-3 mb-3 p-2 rounded-lg bg-[var(--bg-hover)]">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] flex items-center justify-center text-white text-xs font-semibold">
+      <div className="border-t border-[var(--border-color)] p-3 sm:p-4">
+        <div className="flex items-center gap-2 sm:gap-3 mb-3 p-2 rounded-lg bg-[var(--bg-hover)]">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
             {admin?.firstName?.[0]}{admin?.lastName?.[0]}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-[var(--text-primary)] truncate">
+            <p className="text-xs sm:text-sm font-medium text-[var(--text-primary)] truncate">
               {admin?.firstName} {admin?.lastName}
             </p>
             <p className="text-xs text-[var(--text-tertiary)] truncate">

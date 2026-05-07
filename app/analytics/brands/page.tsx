@@ -90,13 +90,13 @@ function BrandAnalyticsContent() {
             </div>
 
             {/* Charts Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 mt-6">
                 {/* Registration Trend Chart */}
-                <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5">
-                    <h2 className="text-base font-semibold text-[var(--text-primary)] mb-4">
+                <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-3 sm:p-5">
+                    <h2 className="text-sm sm:text-base font-semibold text-[var(--text-primary)] mb-4">
                         Registration Trend
                     </h2>
-                    <ResponsiveContainer width="100%" height={300}>
+                    <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
                         <AreaChart data={trendData}>
                             <defs>
                                 <linearGradient id="colorRegistrations" x1="0" y1="0" x2="0" y2="1">
@@ -121,11 +121,11 @@ function BrandAnalyticsContent() {
                 </div>
 
                 {/* Category Distribution Chart */}
-                <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5">
-                    <h2 className="text-base font-semibold text-[var(--text-primary)] mb-4">
+                <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-3 sm:p-5">
+                    <h2 className="text-sm sm:text-base font-semibold text-[var(--text-primary)] mb-4">
                         Top Categories (Top 10)
                     </h2>
-                    <ResponsiveContainer width="100%" height={300}>
+                    <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
                         <BarChart data={categoryData} layout="vertical">
                             <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
                             <XAxis type="number" tick={{ fill: '#6B7280' }} />
@@ -142,75 +142,77 @@ function BrandAnalyticsContent() {
             </div>
 
             {/* Top Brands Table */}
-            <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5 mt-6">
+            <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-3 sm:p-5 mt-6">
                 <h2 className="text-base font-semibold text-[var(--text-primary)] mb-4">
                     Top Brands by Follower Count
                 </h2>
                 {topBrands?.length > 0 ? (
-                    <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead>
-                                <tr className="border-b border-[var(--border-color)]">
-                                    <th className="text-left py-3 px-4 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
-                                        Brand
-                                    </th>
-                                    <th className="text-left py-3 px-4 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
-                                        Category
-                                    </th>
-                                    <th className="text-left py-3 px-4 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
-                                        Status
-                                    </th>
-                                    <th className="text-right py-3 px-4 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
-                                        Followers
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {topBrands.map((brand, index) => (
-                                    <tr
-                                        key={brand.id}
-                                        className="border-b border-[var(--border-color)] last:border-0 hover:bg-[var(--bg-hover)] transition-colors"
-                                    >
-                                        <td className="py-3 px-4">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-sm font-semibold">
-                                                    {index + 1}
-                                                </div>
-                                                <div>
-                                                    <p className="text-sm font-medium text-[var(--text-primary)]">
-                                                        {brand.name}
-                                                    </p>
-                                                    <p className="text-xs text-[var(--text-secondary)]">
-                                                        {brand.email}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="py-3 px-4 text-sm text-[var(--text-secondary)]">
-                                            {brand.category?.name || 'Unknown'}
-                                        </td>
-                                        <td className="py-3 px-4">
-                                            {brand.verified === 'true' ? (
-                                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                                                    <CheckCircle className="w-3 h-3" />
-                                                    Verified
-                                                </span>
-                                            ) : (
-                                                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
-                                                    <Clock className="w-3 h-3" />
-                                                    Pending
-                                                </span>
-                                            )}
-                                        </td>
-                                        <td className="py-3 px-4 text-right">
-                                            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[var(--primary)]/10 text-[var(--primary)]">
-                                                {brand.followerCount.toLocaleString()}
-                                            </span>
-                                        </td>
+                    <div className="overflow-x-auto -mx-3 sm:mx-0">
+                        <div className="inline-block min-w-full align-middle">
+                            <table className="min-w-full">
+                                <thead>
+                                    <tr className="border-b border-[var(--border-color)]">
+                                        <th className="text-left py-3 px-3 sm:px-4 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
+                                            Brand
+                                        </th>
+                                        <th className="text-left py-3 px-3 sm:px-4 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider hidden md:table-cell">
+                                            Category
+                                        </th>
+                                        <th className="text-left py-3 px-3 sm:px-4 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
+                                            Status
+                                        </th>
+                                        <th className="text-right py-3 px-3 sm:px-4 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
+                                            Followers
+                                        </th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {topBrands.map((brand, index) => (
+                                        <tr
+                                            key={brand.id}
+                                            className="border-b border-[var(--border-color)] last:border-0 hover:bg-[var(--bg-hover)] transition-colors"
+                                        >
+                                            <td className="py-3 px-3 sm:px-4">
+                                                <div className="flex items-center gap-2 sm:gap-3">
+                                                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-xs sm:text-sm font-semibold flex-shrink-0">
+                                                        {index + 1}
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <p className="text-xs sm:text-sm font-medium text-[var(--text-primary)] truncate">
+                                                            {brand.name}
+                                                        </p>
+                                                        <p className="text-xs text-[var(--text-secondary)] truncate hidden sm:block">
+                                                            {brand.email}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="py-3 px-3 sm:px-4 text-xs sm:text-sm text-[var(--text-secondary)] hidden md:table-cell">
+                                                {brand.category?.name || 'Unknown'}
+                                            </td>
+                                            <td className="py-3 px-3 sm:px-4">
+                                                {brand.verified === 'true' ? (
+                                                    <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 whitespace-nowrap">
+                                                        <CheckCircle className="w-3 h-3" />
+                                                        <span className="hidden sm:inline">Verified</span>
+                                                    </span>
+                                                ) : (
+                                                    <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700 whitespace-nowrap">
+                                                        <Clock className="w-3 h-3" />
+                                                        <span className="hidden sm:inline">Pending</span>
+                                                    </span>
+                                                )}
+                                            </td>
+                                            <td className="py-3 px-3 sm:px-4 text-right">
+                                                <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-[var(--primary)]/10 text-[var(--primary)] whitespace-nowrap">
+                                                    {brand.followerCount.toLocaleString()}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 ) : (
                     <p className="text-sm text-[var(--text-secondary)] text-center py-8">

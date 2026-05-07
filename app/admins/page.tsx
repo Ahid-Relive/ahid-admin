@@ -173,9 +173,9 @@ function AdminManagementContent() {
   return (
     <div className="space-y-6">
       {/* Page Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-2xl font-semibold text-[var(--text-primary)] mb-1">
+          <h1 className="text-xl sm:text-2xl font-semibold text-[var(--text-primary)] mb-1">
             Admin Management
           </h1>
           <p className="text-sm text-[var(--text-secondary)]">
@@ -187,32 +187,32 @@ function AdminManagementContent() {
             resetForm();
             setIsCreateModalOpen(true);
           }}
-          className="flex items-center gap-2 px-4 py-2 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white font-medium rounded-lg transition-colors"
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white font-medium rounded-lg transition-colors whitespace-nowrap"
         >
-          <UserPlus className="w-5 h-5" />
-          Create Admin
+          <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="text-sm sm:text-base">Create Admin</span>
         </button>
       </div>
 
       {/* Admin Table */}
       <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[640px]">
             <thead className="bg-[var(--bg-hover)]">
               <tr>
-                <th className="text-left py-3 px-6 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
+                <th className="text-left py-3 px-3 sm:px-6 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
                   Admin
                 </th>
-                <th className="text-left py-3 px-6 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
+                <th className="text-left py-3 px-3 sm:px-6 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
                   Role
                 </th>
-                <th className="text-left py-3 px-6 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
+                <th className="text-left py-3 px-3 sm:px-6 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider hidden md:table-cell">
                   Status
                 </th>
-                <th className="text-left py-3 px-6 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
+                <th className="text-left py-3 px-3 sm:px-6 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider hidden lg:table-cell">
                   Last Login
                 </th>
-                <th className="text-right py-3 px-6 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
+                <th className="text-right py-3 px-3 sm:px-6 text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -220,50 +220,51 @@ function AdminManagementContent() {
             <tbody className="divide-y divide-[var(--border-color)]">
               {data.data.map((admin) => (
                 <tr key={admin._id} className="hover:bg-[var(--bg-hover)] transition-colors">
-                  <td className="py-4 px-6">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[var(--primary)] flex items-center justify-center text-white font-semibold">
+                  <td className="py-3 sm:py-4 px-3 sm:px-6">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-xs sm:text-sm font-semibold flex-shrink-0">
                         {admin.firstName[0]}{admin.lastName[0]}
                       </div>
-                      <div>
-                        <p className="text-sm font-medium text-[var(--text-primary)]">
+                      <div className="min-w-0">
+                        <p className="text-xs sm:text-sm font-medium text-[var(--text-primary)] truncate">
                           {admin.firstName} {admin.lastName}
                         </p>
-                        <p className="text-xs text-[var(--text-secondary)]">
+                        <p className="text-xs text-[var(--text-secondary)] truncate">
                           {admin.email}
                         </p>
                       </div>
                     </div>
                   </td>
-                  <td className="py-4 px-6">
-                    <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${getRoleBadgeColor(admin.role)}`}>
+                  <td className="py-3 sm:py-4 px-3 sm:px-6">
+                    <span className={`inline-flex items-center gap-1 px-2 sm:px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${getRoleBadgeColor(admin.role)}`}>
                       {getRoleIcon(admin.role)}
-                      {admin.role.replace('_', ' ').toUpperCase()}
+                      <span className="hidden sm:inline">{admin.role.replace('_', ' ').toUpperCase()}</span>
+                      <span className="sm:hidden">{admin.role === 'super_admin' ? 'SA' : admin.role.charAt(0).toUpperCase()}</span>
                     </span>
                   </td>
-                  <td className="py-4 px-6">
+                  <td className="py-3 sm:py-4 px-3 sm:px-6 hidden md:table-cell">
                     {admin.isActive ? (
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                      <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 whitespace-nowrap">
                         Active
                       </span>
                     ) : (
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                      <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 whitespace-nowrap">
                         Inactive
                       </span>
                     )}
                   </td>
-                  <td className="py-4 px-6">
-                    <p className="text-sm text-[var(--text-secondary)]">
+                  <td className="py-3 sm:py-4 px-3 sm:px-6 hidden lg:table-cell">
+                    <p className="text-xs sm:text-sm text-[var(--text-secondary)] whitespace-nowrap">
                       {admin.lastLogin
                         ? format(new Date(admin.lastLogin), 'MMM dd, yyyy HH:mm')
                         : 'Never'}
                     </p>
                   </td>
-                  <td className="py-4 px-6">
-                    <div className="flex items-center justify-end gap-2">
+                  <td className="py-3 sm:py-4 px-3 sm:px-6">
+                    <div className="flex items-center justify-end gap-1 sm:gap-2">
                       <button
                         onClick={() => openEditModal(admin)}
-                        className="p-2 text-[var(--text-secondary)] hover:text-[var(--primary)] hover:bg-[var(--bg-hover)] rounded-lg transition-colors"
+                        className="p-1.5 sm:p-2 text-[var(--text-secondary)] hover:text-[var(--primary)] hover:bg-[var(--bg-hover)] rounded-lg transition-colors"
                         title="Edit"
                       >
                         <Edit className="w-4 h-4" />
@@ -271,7 +272,7 @@ function AdminManagementContent() {
                       {admin._id !== currentAdmin?.id && (
                         <button
                           onClick={() => setShowDeleteConfirm(admin._id)}
-                          className="p-2 text-[var(--text-secondary)] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-1.5 sm:p-2 text-[var(--text-secondary)] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                           title="Delete"
                         >
                           <Trash2 className="w-4 h-4" />

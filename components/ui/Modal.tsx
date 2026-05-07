@@ -42,26 +42,26 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
       />
 
       {/* Modal */}
-      <div className="flex min-h-full items-center justify-center p-4">
+      <div className="flex min-h-full items-center justify-center p-3 sm:p-4">
         <div 
-          className={`relative dark:bg-[var(--bg-card)] rounded-xl shadow-2xl w-full ${sizeClasses[size]} max-h-[90vh] overflow-hidden`}
+          className={`relative dark:bg-[var(--bg-card)] rounded-lg sm:rounded-xl shadow-2xl w-full ${sizeClasses[size]} max-h-[95vh] sm:max-h-[90vh] overflow-hidden`}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-[var(--border-color)]">
-            <h2 className="text-xl font-semibold text-[var(--text-primary)]">
+          <div className="flex items-center justify-between p-4 sm:p-6 border-b border-[var(--border-color)]">
+            <h2 className="text-lg sm:text-xl font-semibold text-[var(--text-primary)]">
               {title}
             </h2>
             <button
               onClick={onClose}
-              className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-hover)] transition-colors"
+              className="p-1.5 sm:p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--bg-hover)] transition-colors flex-shrink-0"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Content */}
-          <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
+          <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(95vh-120px)] sm:max-h-[calc(90vh-140px)]">
             {children}
           </div>
         </div>

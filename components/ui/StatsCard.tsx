@@ -35,13 +35,13 @@ export function StatsCard({
   const colors = colorClasses[color];
 
   return (
-    <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5 hover:shadow-md transition-all">
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex-1">
+    <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-3 sm:p-4 md:p-5 hover:shadow-md transition-all">
+      <div className="flex items-start justify-between mb-2 sm:mb-3">
+        <div className="flex-1 min-w-0">
           <p className="text-xs font-medium text-[var(--text-tertiary)] uppercase tracking-wide mb-1">
             {title}
           </p>
-          <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-1">
+          <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] mb-1 truncate">
             {typeof value === 'number' ? value.toLocaleString() : value}
           </h3>
           {subtitle && (
@@ -58,8 +58,8 @@ export function StatsCard({
             </div>
           )}
         </div>
-        <div className={`p-2.5 rounded-lg ${colors.icon}`}>
-          <Icon className={`w-5 h-5 ${colors.text}`} strokeWidth={2} />
+        <div className={`p-2 sm:p-2.5 rounded-lg ${colors.icon} flex-shrink-0`}>
+          <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${colors.text}`} strokeWidth={2} />
         </div>
       </div>
     </div>

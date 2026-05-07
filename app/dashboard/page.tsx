@@ -85,10 +85,10 @@ function DashboardContent() {
       </div>
 
       {/* Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 mt-6">
         {/* Recent Users */}
-        <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5">
-          <h2 className="text-base font-semibold text-[var(--text-primary)] mb-4">
+        <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-3 sm:p-5">
+          <h2 className="text-sm sm:text-base font-semibold text-[var(--text-primary)] mb-4">
             Recent Users
           </h2>
           {recentUsers.length > 0 ? (
@@ -96,23 +96,23 @@ function DashboardContent() {
               {recentUsers.map((user) => (
                 <div
                   key={user._id}
-                  className="flex items-center justify-between p-3 rounded-lg hover:bg-[var(--bg-hover)] transition-colors"
+                  className="flex items-center justify-between p-2 sm:p-3 rounded-lg hover:bg-[var(--bg-hover)] transition-colors"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-xs font-semibold">
+                  <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
                       {user?.firstName?.[0] || 'U'}{user?.lastName?.[0] || ''}
                     </div>
-                    <div>
-                      <p className="text-sm font-medium text-[var(--text-primary)]">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs sm:text-sm font-medium text-[var(--text-primary)] truncate">
                         {user.firstName} {user.lastName}
                       </p>
-                      <p className="text-xs text-[var(--text-tertiary)]">
+                      <p className="text-xs text-[var(--text-tertiary)] truncate">
                         {user.email}
                       </p>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-xs text-[var(--text-tertiary)]">
+                  <div className="text-right flex-shrink-0 ml-2">
+                    <p className="text-xs text-[var(--text-tertiary)] whitespace-nowrap">
                       {format(new Date(user.createdAt), 'MMM dd, yyyy')}
                     </p>
                   </div>
@@ -127,8 +127,8 @@ function DashboardContent() {
         </div>
 
         {/* Recent Brands */}
-        <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5">
-          <h2 className="text-base font-semibold text-[var(--text-primary)] mb-4">
+        <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-3 sm:p-5">
+          <h2 className="text-sm sm:text-base font-semibold text-[var(--text-primary)] mb-4">
             Recent Brands
           </h2>
           {recentBrands.length > 0 ? (
@@ -136,28 +136,28 @@ function DashboardContent() {
               {recentBrands.map((brand) => (
                 <div
                   key={brand._id}
-                  className="flex items-center justify-between p-3 rounded-lg hover:bg-[var(--bg-hover)] transition-colors"
+                  className="flex items-center justify-between p-2 sm:p-3 rounded-lg hover:bg-[var(--bg-hover)] transition-colors"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white text-xs font-semibold">
+                  <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
                       {brand?.name?.[0] || 'B'}
                     </div>
-                    <div>
+                    <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <p className="text-sm font-medium text-[var(--text-primary)]">
+                        <p className="text-xs sm:text-sm font-medium text-[var(--text-primary)] truncate">
                           {brand.name}
                         </p>
                         {brand.verified === 'true' && (
-                          <CheckCircle className="w-3.5 h-3.5 text-[var(--verified)]" />
+                          <CheckCircle className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[var(--verified)] flex-shrink-0" />
                         )}
                       </div>
-                      <p className="text-xs text-[var(--text-tertiary)]">
+                      <p className="text-xs text-[var(--text-tertiary)] truncate">
                         {brand.brand_email}
                       </p>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-xs text-[var(--text-tertiary)]">
+                  <div className="text-right flex-shrink-0 ml-2">
+                    <p className="text-xs text-[var(--text-tertiary)] whitespace-nowrap">
                       {format(new Date(brand.createdAt), 'MMM dd, yyyy')}
                     </p>
                   </div>
