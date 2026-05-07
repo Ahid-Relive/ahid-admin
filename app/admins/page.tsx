@@ -195,7 +195,7 @@ function AdminManagementContent() {
       </div>
 
       {/* Admin Table */}
-      <div className="bg-white dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] overflow-hidden">
+      <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-[var(--bg-hover)]">
