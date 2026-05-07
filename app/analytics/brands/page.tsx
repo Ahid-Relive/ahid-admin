@@ -36,10 +36,13 @@ function BrandAnalyticsContent() {
   // Format category distribution for bar chart (top 10)
   const categoryData = (stats?.categoryDistribution || [])
     .slice(0, 10)
-    .map((item) => ({
-      category: item?._id?.length > 20 ? item._id.substring(0, 20) + '...' : item._id,
-      count: item.count,
-    }));
+    .map((item) => {
+      const categoryName = item?.category?.name || 'Unknown';
+      return {
+        category: categoryName.length > 20 ? categoryName.substring(0, 20) + '...' : categoryName,
+        count: item.count,
+      };
+    });
 
   const topBrands = stats?.topBrands || [];
 
@@ -184,7 +187,7 @@ function BrandAnalyticsContent() {
                       </div>
                     </td>
                     <td className="py-3 px-4 text-sm text-[var(--text-secondary)]">
-                      {brand.category}
+                      {brand.category?.name || 'Unknown'}
                     </td>
                     <td className="py-3 px-4">
                       {brand.verified === 'true' ? (

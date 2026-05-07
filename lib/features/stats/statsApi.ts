@@ -25,9 +25,14 @@ interface DashboardStats {
         _id: string;
         name: string;
         brand_email: string;
+        category?: {
+          _id: string;
+          name: string;
+          slug: string;
+        };
         verified: string;
         createdAt: string;
-      }>;
+      }>
     };
   };
 }
@@ -70,14 +75,22 @@ interface BrandStats {
       count: number;
     }>;
     categoryDistribution: Array<{
-      _id: string;
+      category: {
+        _id: string;
+        name: string;
+        slug: string;
+      };
       count: number;
     }>;
     topBrands: Array<{
       id: string;
       name: string;
       email: string;
-      category: string;
+      category: {
+        _id: string;
+        name: string;
+        slug: string;
+      };
       verified: string;
       followerCount: number;
     }>;
