@@ -46,7 +46,7 @@ function PostAnalyticsContent() {
     return <LoadingSkeleton />;
   }
 
-  if (error || (!isLoading && !data || !data.data)) {
+  if (error || (!isLoading && (!data || !data.data))) {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
         <p className="text-red-700">Failed to load post statistics. Please try again.</p>
