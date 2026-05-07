@@ -103,12 +103,12 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
       {/* Logo */}
       <div className="flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6 border-b border-[var(--border-color)]">
         <div className="flex items-center gap-2.5">
-          <div className="relative w-fit h-5 sm:h-6">
+          <div className="relative w-fit h-fit">
             <Image
               src="/ahid_logo.png"
               alt="Ahid Logo"
-              width={720}
-              height={480}
+              width={360}
+              height={240}
               className="w-full h-full object-cover"
               priority
             />

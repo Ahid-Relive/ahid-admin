@@ -25,7 +25,7 @@ export default function LoginPage() {
         }
     }, [isAuthenticated, router]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError('');
 
@@ -43,7 +43,7 @@ export default function LoginPage() {
             }
         } catch (err: any) {
             console.log(err)
-            setError(err);
+            setError(err?.data?.message || err?.message || 'Login failed. Please check your credentials.');
         }
     };
 
