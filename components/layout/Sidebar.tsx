@@ -96,7 +96,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
 
   return (
     <div
-      className={`flex flex-col h-full dark:bg-[var(--sidebar-bg)] border-r border-[var(--border-color)] w-64 transition-all duration-300 fixed lg:static inset-y-0 left-0 z-50 ${
+      className={`flex flex-col h-full light:bg-white dark:bg-[var(--sidebar-bg)] border-r border-[var(--border-color)] w-64 transition-all duration-300 fixed lg:static inset-y-0 left-0 z-50 ${
         isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       }`}
     >
