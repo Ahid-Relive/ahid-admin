@@ -44,7 +44,7 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
       {/* Modal */}
       <div className="flex min-h-full items-center justify-center p-3 sm:p-4">
         <div 
-          className={`relative dark:bg-[var(--bg-card)] rounded-lg sm:rounded-xl shadow-2xl w-full ${sizeClasses[size]} max-h-[95vh] sm:max-h-[90vh] overflow-hidden`}
+          className={`relative bg-[var(--bg-card)] backdrop-blur-xl rounded-lg sm:rounded-xl shadow-2xl w-full ${sizeClasses[size]} max-h-[95vh] sm:max-h-[90vh] overflow-hidden`}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}

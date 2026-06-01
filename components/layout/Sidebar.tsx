@@ -10,7 +10,8 @@ import {
   UserCog,
   BarChart3,
   LogOut,
-  ChevronDown
+  ChevronDown,
+  Layers,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useState } from 'react';
@@ -56,6 +57,12 @@ const navigation: NavItem[] = [
         permission: 'canViewAnalytics',
       },
     ],
+  },
+  {
+    name: 'Categories',
+    href: '/categories',
+    icon: Layers,
+    permission: 'canManageCategories',
   },
   {
     name: 'Admin Management',

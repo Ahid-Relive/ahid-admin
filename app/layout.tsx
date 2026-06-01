@@ -40,7 +40,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <ReduxProvider>
           <ThemeProvider>
-            <AuthProvider>{children}</AuthProvider>
+            <AuthProvider>
+              
+              {children}
+              </AuthProvider>
           </ThemeProvider>
         </ReduxProvider>
       </body>

@@ -136,19 +136,19 @@ interface PostStats {
 export const statsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getDashboardStats: builder.query<DashboardStats, void>({
-      query: () => '/stats/dashboard',
+      query: () => '/admin/stats/dashboard',
       providesTags: ['Stats'],
     }),
     getUserStats: builder.query<UserStats, void>({
-      query: () => '/stats/users',
+      query: () => '/admin/stats/users',
       providesTags: ['Stats'],
     }),
     getBrandStats: builder.query<BrandStats, void>({
-      query: () => '/stats/brands',
+      query: () => '/admin/stats/brands',
       providesTags: ['Stats'],
     }),
     getPostStats: builder.query<PostStats, void>({
-      query: () => '/stats/posts',
+      query: () => '/admin/stats/posts',
       providesTags: ['Stats'],
     }),
   }),

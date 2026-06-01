@@ -52,19 +52,19 @@ export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (credentials) => ({
-        url: '/login',
+        url: '/admin/login',
         method: 'POST',
         body: credentials,
       }),
     }),
     logout: builder.mutation<{ success: boolean; message: string }, void>({
       query: () => ({
-        url: '/logout',
+        url: '/admin/logout',
         method: 'POST',
       }),
     }),
     getProfile: builder.query<ProfileResponse, void>({
-      query: () => '/profile',
+      query: () => '/admin/profile',
       providesTags: ['Profile'],
     }),
   }),

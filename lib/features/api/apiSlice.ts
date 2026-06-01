@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/admin';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 export const apiSlice = createApi({
   reducerPath: 'api',
@@ -15,6 +15,6 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Admin', 'Stats', 'Profile'],
+  tagTypes: ['Admin', 'Stats', 'Profile', 'Category'],
   endpoints: () => ({}),
 });
