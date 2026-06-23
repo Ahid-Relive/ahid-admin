@@ -54,12 +54,12 @@ interface AdminResponse {
 export const adminsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllAdmins: builder.query<AdminsResponse, void>({
-      query: () => '/admins',
+      query: () => '/admin/admins',
       providesTags: ['Admin'],
     }),
     createAdmin: builder.mutation<AdminResponse, CreateAdminRequest>({
       query: (adminData) => ({
-        url: '/admins',
+        url: '/admin/admins',
         method: 'POST',
         body: adminData,
       }),
@@ -67,7 +67,7 @@ export const adminsApi = apiSlice.injectEndpoints({
     }),
     updateAdmin: builder.mutation<AdminResponse, { id: string; updates: UpdateAdminRequest }>({
       query: ({ id, updates }) => ({
-        url: `/admins/${id}`,
+        url: `/admin/admins/${id}`,
         method: 'PUT',
         body: updates,
       }),
@@ -75,7 +75,7 @@ export const adminsApi = apiSlice.injectEndpoints({
     }),
     deleteAdmin: builder.mutation<{ success: boolean; message: string }, string>({
       query: (id) => ({
-        url: `/admins/${id}`,
+        url: `/admin/admins/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Admin'],
