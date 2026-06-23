@@ -68,7 +68,6 @@ const navigation: NavItem[] = [
     name:'Brands',
     href:'/brands',
     icon:Building2,
-    isSuperAdminOnly: true,
   },
   {
     name: 'Admin Management',
