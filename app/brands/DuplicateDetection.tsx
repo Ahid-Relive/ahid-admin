@@ -2,7 +2,7 @@
 'use client';
 
 import { AlertTriangle } from 'lucide-react';
-import type { BulkUploadRow, DuplicateStrategy } from '../types/brand.types';
+import type { BulkUploadRow, DuplicateStrategy } from './types/brand.types';
 
 interface DuplicateDetectionProps {
   duplicateRows: BulkUploadRow[];

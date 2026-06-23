@@ -2,7 +2,7 @@
 'use client';
 
 import { CheckCircle2, XCircle, AlertTriangle } from 'lucide-react';
-import type { BulkUploadRow } from '../types/brand.types';
+import type { BulkUploadRow } from './types/brand.types';
 
 interface UploadPreviewProps {
   rows: BulkUploadRow[];
