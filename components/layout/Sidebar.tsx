@@ -65,6 +65,12 @@ const navigation: NavItem[] = [
     permission: 'canManageCategories',
   },
   {
+    name:'Brands',
+    href:'/brands',
+    icon:Building2,
+    isSuperAdminOnly: true,
+  },
+  {
     name: 'Admin Management',
     href: '/admins',
     icon: UserCog,

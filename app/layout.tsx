@@ -4,6 +4,7 @@ import "./globals.css";
 import { ReduxProvider } from "@/lib/ReduxProvider";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import Script from 'next/script';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,14 +37,18 @@ export default function RootLayout({
             `,
           }}
         />
+        <Script
+          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
+          strategy="afterInteractive"
+        />
       </head>
       <body className="min-h-full flex flex-col">
         <ReduxProvider>
           <ThemeProvider>
             <AuthProvider>
-              
+
               {children}
-              </AuthProvider>
+            </AuthProvider>
           </ThemeProvider>
         </ReduxProvider>
       </body>
