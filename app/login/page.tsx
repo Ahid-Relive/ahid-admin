@@ -56,10 +56,10 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-3 sm:p-4">
+        <div className="min-h-screen flex items-center justify-center p-4 bg-[radial-gradient(60rem_30rem_at_50%_-10%,var(--primary-light),transparent)]">
             <div className="w-full max-w-md">
                 {/* Login Card */}
-                <div className="dark:bg-[var(--bg-card)] rounded-xl sm:rounded-2xl shadow-xl border border-gray-400 p-6 sm:p-8 transition-colors">
+                <div className="bg-[var(--bg-card)] rounded-xl sm:rounded-2xl shadow-xl border border-[var(--border-color)] p-6 sm:p-8 transition-colors">
                     {/* Logo and Title */}
                     <div className="text-center mb-6 sm:mb-8">
                         <div className="flex justify-center mb-3 sm:mb-4">
@@ -147,7 +147,7 @@ export default function LoginPage() {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full py-2 sm:py-2.5 px-4 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white text-xs sm:text-sm font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                            className="w-full py-2 sm:py-2.5 px-4 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-[var(--on-primary)] text-xs sm:text-sm font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
                             {isLoading ? (
                                 <>
@@ -168,7 +168,7 @@ export default function LoginPage() {
 
                 {/* Additional Info */}
                 <div className="mt-3 sm:mt-4 text-center">
-                    <p className="text-xs text-white/80">
+                    <p className="text-xs text-[var(--text-tertiary)]">
                         © 2026 Ahid. All rights reserved.
                     </p>
                 </div>

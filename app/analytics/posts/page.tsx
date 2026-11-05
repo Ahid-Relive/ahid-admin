@@ -7,11 +7,12 @@ import { LoadingSkeleton } from '@/components/ui/LoadingSkeleton';
 import { useGetPostStatsQuery } from '@/lib/features/stats/statsApi';
 import { FileText, ThumbsUp, ThumbsDown, Image as ImageIcon } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
+import { ChartTooltip } from '@/lib/utils/chartStyles';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useState } from 'react';
 
-const COLORS = ['#22D3BE', '#34D399', '#FBBF24', '#F87171', '#60A5FA'];
+const COLORS = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)", "var(--chart-5)", "var(--chart-6)"];
 
 // Helper function to build proper image URLs
 const getImageUrl = (imagePath: string | null | undefined): string => {
@@ -117,23 +118,23 @@ function PostAnalyticsContent() {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
         {/* Posting Trend Chart */}
-        <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5">
+        <div className="bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5">
           <h2 className="text-base font-semibold text-[var(--text-primary)] mb-4">
             Posting Trend
           </h2>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={trendData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-              <XAxis dataKey="name" tick={{ fill: '#6B7280' }} />
-              <YAxis tick={{ fill: '#6B7280' }} />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
+              <XAxis dataKey="name" tick={{ fill: 'var(--text-tertiary)' }} />
+              <YAxis tick={{ fill: 'var(--text-tertiary)' }} />
+              <Tooltip content={<ChartTooltip />} cursor={{ fill: "var(--bg-hover)" }} />
               <Legend />
               <Line 
                 type="monotone" 
                 dataKey="posts" 
-                stroke="#22D3BE" 
+                stroke="var(--chart-1)" 
                 strokeWidth={2}
-                dot={{ fill: '#208E85', r: 4 }}
+                dot={{ fill: 'var(--chart-1)', r: 4 }}
                 activeDot={{ r: 6 }}
               />
             </LineChart>
@@ -141,22 +142,22 @@ function PostAnalyticsContent() {
         </div>
 
         {/* Most Active Brands Chart */}
-        <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5">
+        <div className="bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5">
           <h2 className="text-base font-semibold text-[var(--text-primary)] mb-4">
             Most Active Brands (Top 10)
           </h2>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={brandActivityData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
               <XAxis 
                 dataKey="brand" 
-                tick={{ fill: '#6B7280', fontSize: 11 }} 
+                tick={{ fill: 'var(--text-tertiary)', fontSize: 11 }} 
                 angle={-45}
                 textAnchor="end"
                 height={80}
               />
-              <YAxis tick={{ fill: '#6B7280' }} />
-              <Tooltip />
+              <YAxis tick={{ fill: 'var(--text-tertiary)' }} />
+              <Tooltip content={<ChartTooltip />} cursor={{ fill: "var(--bg-hover)" }} />
               <Bar dataKey="posts" radius={[4, 4, 0, 0]}>
                 {brandActivityData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -168,7 +169,7 @@ function PostAnalyticsContent() {
       </div>
 
       {/* Top Posts */}
-      <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5 mt-6">
+      <div className="bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5 mt-6">
         <h2 className="text-base font-semibold text-[var(--text-primary)] mb-4">
           Top Posts by Engagement
         </h2>
@@ -177,7 +178,7 @@ function PostAnalyticsContent() {
             {topPosts.map((post) => (
               <div 
                 key={post.id}
-                className="dark:bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg p-4 hover:shadow-md transition-shadow"
+                className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg p-4 hover:shadow-md transition-shadow"
               >
                 {/* Post Description */}
                 <p className="text-sm text-[var(--text-primary)] mb-3 line-clamp-2">
@@ -186,7 +187,7 @@ function PostAnalyticsContent() {
 
                 {/* Brand Info */}
                 <div className="flex items-center gap-2 mb-3 pb-3 border-b border-[var(--border-color)]">
-                  <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-xs font-semibold overflow-hidden">
+                  <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-[var(--on-primary)] text-xs font-semibold overflow-hidden">
                     {post?.brand?.profile && !failedImages.has(post.brand.profile) ? (
                       <Image 
                         src={getImageUrl(post.brand.profile)} 

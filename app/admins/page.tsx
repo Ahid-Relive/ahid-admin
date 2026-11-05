@@ -187,7 +187,7 @@ function AdminManagementContent() {
             resetForm();
             setIsCreateModalOpen(true);
           }}
-          className="flex items-center justify-center gap-2 px-4 py-2 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white font-medium rounded-lg transition-colors whitespace-nowrap"
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-[var(--on-primary)] font-medium rounded-lg transition-colors whitespace-nowrap"
         >
           <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
           <span className="text-sm sm:text-base">Create Admin</span>
@@ -195,7 +195,7 @@ function AdminManagementContent() {
       </div>
 
       {/* Admin Table */}
-      <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] overflow-hidden">
+      <div className="bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px]">
             <thead className="bg-[var(--bg-hover)]">
@@ -222,7 +222,7 @@ function AdminManagementContent() {
                 <tr key={admin._id} className="hover:bg-[var(--bg-hover)] transition-colors">
                   <td className="py-3 sm:py-4 px-3 sm:px-6">
                     <div className="flex items-center gap-2 sm:gap-3">
-                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-xs sm:text-sm font-semibold flex-shrink-0">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[var(--primary)] flex items-center justify-center text-[var(--on-primary)] text-xs sm:text-sm font-semibold flex-shrink-0">
                         {admin.firstName[0]}{admin.lastName[0]}
                       </div>
                       <div className="min-w-0">
@@ -414,7 +414,7 @@ function AdminManagementContent() {
             <button
               type="submit"
               disabled={isCreating}
-              className="px-6 py-2 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white font-medium rounded-lg transition-colors disabled:opacity-50"
+              className="px-6 py-2 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-[var(--on-primary)] font-medium rounded-lg transition-colors disabled:opacity-50"
             >
               {isCreating ? 'Creating...' : 'Create Admin'}
             </button>
@@ -535,7 +535,7 @@ function AdminManagementContent() {
             <button
               type="submit"
               disabled={isUpdating}
-              className="px-6 py-2 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white font-medium rounded-lg transition-colors disabled:opacity-50"
+              className="px-6 py-2 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-[var(--on-primary)] font-medium rounded-lg transition-colors disabled:opacity-50"
             >
               {isUpdating ? 'Updating...' : 'Update Admin'}
             </button>
@@ -565,7 +565,7 @@ function AdminManagementContent() {
               <button
                 onClick={() => handleDelete(showDeleteConfirm)}
                 disabled={isDeleting}
-                className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors disabled:opacity-50"
+                className="px-6 py-2 bg-[var(--danger-solid)] hover:brightness-90 text-white font-medium rounded-lg transition-colors disabled:opacity-50"
               >
                 {isDeleting ? 'Deleting...' : 'Delete'}
               </button>

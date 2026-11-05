@@ -86,7 +86,7 @@ export function CreateBrandModal({
             <input
               {...register('brandName')}
               placeholder="My Brand Store"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
             />
             {errors.brandName && <p className="mt-1 text-xs text-red-600">{errors.brandName.message}</p>}
           </div>
@@ -97,7 +97,7 @@ export function CreateBrandModal({
               {...register('brandEmail')}
               type="email"
               placeholder="contact@brand.com"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
             />
             {errors.brandEmail && <p className="mt-1 text-xs text-red-600">{errors.brandEmail.message}</p>}
             <p className="mt-1 text-xs text-gray-500">
@@ -111,7 +111,7 @@ export function CreateBrandModal({
               <select
                 {...register('category')}
                 disabled={categoriesLoading}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-400"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)] disabled:bg-gray-50 disabled:text-gray-400"
               >
                 <option value="">
                   {categoriesLoading ? 'Loading...' : categoriesError ? 'Failed to load' : 'Select a category'}
@@ -128,7 +128,7 @@ export function CreateBrandModal({
               <input
                 {...register('phone')}
                 placeholder="+234..."
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
               />
             </div>
           </div>
@@ -141,7 +141,7 @@ export function CreateBrandModal({
             <label className="mb-1 block text-sm font-medium text-gray-700">Country *</label>
             <select
               {...register('mainAddress.country')}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
             >
               <option value="">Select a country</option>
               {COUNTRIES.map((c) => (
@@ -182,7 +182,7 @@ export function CreateBrandModal({
                     shouldValidate: true,
                   })
                 }
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
               />
             </div>
             <div>
@@ -196,7 +196,7 @@ export function CreateBrandModal({
                     shouldValidate: true,
                   })
                 }
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
               />
             </div>
           </div>
@@ -216,7 +216,7 @@ export function CreateBrandModal({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--primary)] px-4 py-2 text-sm font-medium text-[var(--on-primary)] hover:bg-[var(--primary-dark)] disabled:opacity-60"
           >
             {isSubmitting && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
             {initialValues ? 'Save Changes' : 'Create Brand'}

@@ -372,7 +372,7 @@ export function IconPicker({ isOpen, onClose, onSelect, currentIcon }: IconPicke
       />
       <div className="flex min-h-full items-center justify-center p-3 sm:p-4">
         <div
-          className="relative dark:bg-[var(--bg-card)] bg-[var(--bg-card)] rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col"
+          className="relative bg-[var(--bg-card)] bg-[var(--bg-card)] rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
@@ -430,7 +430,7 @@ export function IconPicker({ isOpen, onClose, onSelect, currentIcon }: IconPicke
                       title={icon.name}
                       className={`relative flex flex-col items-center justify-center p-2.5 rounded-lg transition-all group ${
                         isSelected
-                          ? 'bg-[var(--primary)] text-white shadow-md scale-105'
+                          ? 'bg-[var(--primary)] text-[var(--on-primary)] shadow-md scale-105'
                           : 'text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--primary)] hover:scale-105'
                       }`}
                     >
@@ -481,7 +481,7 @@ export function IconPicker({ isOpen, onClose, onSelect, currentIcon }: IconPicke
                 type="button"
                 onClick={handleConfirm}
                 disabled={!selected}
-                className="px-4 py-2 text-sm font-medium text-white bg-[var(--primary)] hover:bg-[var(--primary-dark)] rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="px-4 py-2 text-sm font-medium text-[var(--on-primary)] bg-[var(--primary)] hover:bg-[var(--primary-dark)] rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Use Icon
               </button>

@@ -37,19 +37,19 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/50 transition-opacity"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
       {/* Modal */}
       <div className="flex min-h-full items-center justify-center p-3 sm:p-4">
         <div 
-          className={`relative bg-[var(--bg-card)] backdrop-blur-xl rounded-lg sm:rounded-xl shadow-2xl w-full ${sizeClasses[size]} max-h-[95vh] sm:max-h-[90vh] overflow-hidden`}
+          className={`relative bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl sm:rounded-2xl shadow-2xl w-full ${sizeClasses[size]} max-h-[95vh] sm:max-h-[90vh] overflow-hidden`}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
           <div className="flex items-center justify-between p-4 sm:p-6 border-b border-[var(--border-color)]">
-            <h2 className="text-lg sm:text-xl font-semibold text-[var(--text-primary)]">
+            <h2 className="text-lg font-bold text-[var(--text-primary)]">
               {title}
             </h2>
             <button

@@ -27,7 +27,7 @@ export function BrandFilters({
   onBulkUpload,
 }: BrandFiltersProps) {
   return (
-    <div className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm md:flex-row md:items-center md:justify-between">
+    <div className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-[var(--bg-card)] p-4 shadow-sm md:flex-row md:items-center md:justify-between">
       <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative max-w-xs flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
@@ -36,14 +36,14 @@ export function BrandFilters({
             placeholder="Search brands..."
             value={filters.search}
             onChange={(e) => onChange({ ...filters, search: e.target.value })}
-            className="w-full rounded-lg border border-gray-300 py-2 pl-9 pr-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full rounded-lg border border-gray-300 py-2 pl-9 pr-3 text-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
           />
         </div>
 
         <select
           value={filters.country}
           onChange={(e) => onChange({ ...filters, country: e.target.value })}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
         >
           <option value="">All Countries</option>
           {countries.map((c) => (
@@ -56,7 +56,7 @@ export function BrandFilters({
         <select
           value={filters.claimStatus}
           onChange={(e) => onChange({ ...filters, claimStatus: e.target.value as BrandFilterState['claimStatus'] })}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
         >
           <option value="all">All Statuses</option>
           <option value="claimed">Claimed</option>
@@ -81,7 +81,7 @@ export function BrandFilters({
         </button>
         <button
           onClick={onAddBrand}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--primary)] px-3 py-2 text-sm font-medium text-[var(--on-primary)] hover:bg-[var(--primary-dark)]"
         >
           <Plus className="h-4 w-4" />
           Add Brand

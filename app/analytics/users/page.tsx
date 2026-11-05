@@ -7,8 +7,9 @@ import { LoadingSkeleton } from '@/components/ui/LoadingSkeleton';
 import { useGetUserStatsQuery } from '@/lib/features/stats/statsApi';
 import { Users, UserCheck, UserX, MapPin } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { ChartTooltip } from '@/lib/utils/chartStyles';
 
-const COLORS = ['#22D3BE', '#34D399', '#FBBF24', '#F87171', '#60A5FA'];
+const COLORS = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)", "var(--chart-5)", "var(--chart-6)"];
 
 function UserAnalyticsContent() {
   const { data, isLoading, error } = useGetUserStatsQuery();
@@ -87,23 +88,23 @@ function UserAnalyticsContent() {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
         {/* Registration Trend Chart */}
-        <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5">
+        <div className="bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5">
           <h2 className="text-base font-semibold text-[var(--text-primary)] mb-4">
             Registration Trend
           </h2>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={trendData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-              <XAxis dataKey="name" tick={{ fill: '#6B7280' }} />
-              <YAxis tick={{ fill: '#6B7280' }} />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
+              <XAxis dataKey="name" tick={{ fill: 'var(--text-tertiary)' }} />
+              <YAxis tick={{ fill: 'var(--text-tertiary)' }} />
+              <Tooltip content={<ChartTooltip />} cursor={{ fill: "var(--bg-hover)" }} />
               <Legend />
               <Line 
                 type="monotone" 
                 dataKey="registrations" 
-                stroke="#22D3BE" 
+                stroke="var(--chart-1)" 
                 strokeWidth={2}
-                dot={{ fill: '#208E85', r: 4 }}
+                dot={{ fill: 'var(--chart-1)', r: 4 }}
                 activeDot={{ r: 6 }}
               />
             </LineChart>
@@ -111,7 +112,7 @@ function UserAnalyticsContent() {
         </div>
 
         {/* Verification Status Chart */}
-        <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5">
+        <div className="bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5">
           <h2 className="text-base font-semibold text-[var(--text-primary)] mb-4">
             Verification Status
           </h2>
@@ -124,21 +125,21 @@ function UserAnalyticsContent() {
                 labelLine={false}
                 label={({ name, percent }) => `${name}: ${percent && (percent * 100).toFixed(0)}%`}
                 outerRadius={100}
-                fill="#8884d8"
+                fill="var(--chart-2)"
                 dataKey="value"
               >
                 {pieData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip content={<ChartTooltip />} cursor={{ fill: "var(--bg-hover)" }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       {/* Top Users Table */}
-      <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5 mt-6">
+      <div className="bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-5 mt-6">
         <h2 className="text-base font-semibold text-[var(--text-primary)] mb-4">
           Top Users by Following Count
         </h2>
@@ -166,7 +167,7 @@ function UserAnalyticsContent() {
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-sm font-semibold">
+                        <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-[var(--on-primary)] text-sm font-semibold">
                           {index + 1}
                         </div>
                         <span className="text-sm font-medium text-[var(--text-primary)]">

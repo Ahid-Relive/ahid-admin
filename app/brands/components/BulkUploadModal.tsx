@@ -46,7 +46,7 @@ function UploadDropzone({ onFile, isProcessing }: { onFile: (file: File) => void
     <div
       {...getRootProps()}
       className={`flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-12 text-center transition-colors ${
-        isDragActive ? 'border-blue-400 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
+        isDragActive ? 'border-blue-400 bg-blue-50' : 'border-gray-300 hover:border-[var(--border-color)]'
       }`}
     >
       <input {...getInputProps()} />
@@ -106,14 +106,14 @@ export function BulkUploadModal({
               <div className="flex shrink-0 gap-2">
                 <button
                   onClick={downloadCsvTemplate}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 bg-[var(--bg-card)] px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
                 >
                   <Download className="h-3.5 w-3.5" />
                   CSV
                 </button>
                 <button
                   onClick={downloadXlsxTemplate}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 bg-[var(--bg-card)] px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
                 >
                   <FileSpreadsheet className="h-3.5 w-3.5" />
                   XLSX
@@ -152,7 +152,7 @@ export function BulkUploadModal({
               <button
                 onClick={handleProceedToImport}
                 disabled={upload.validRows.length === 0}
-                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+                className="rounded-lg bg-[var(--primary)] px-4 py-2 text-sm font-medium text-[var(--on-primary)] hover:bg-[var(--primary-dark)] disabled:opacity-50"
               >
                 Import {upload.validRows.length} Brand{upload.validRows.length === 1 ? '' : 's'}
               </button>

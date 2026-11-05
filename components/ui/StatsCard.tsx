@@ -1,66 +1,59 @@
 'use client';
 
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon, ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react';
+
+type Tone = 'primary' | 'blue' | 'green' | 'purple' | 'teal' | 'orange' | 'red';
 
 interface StatsCardProps {
   title: string;
   value: number | string;
   icon: LucideIcon;
-  color?: 'blue' | 'green' | 'purple' | 'teal' | 'orange' | 'red' | 'primary';
+  color?: Tone;
   subtitle?: string;
-  trend?: {
-    value: number;
-    isPositive: boolean;
-  };
+  /** Percentage change vs previous period (null = not enough data) */
+  delta?: number | null;
+  deltaLabel?: string;
 }
 
-const colorClasses = {
-  blue: { bg: 'bg-blue-50 dark:bg-blue-900/20', text: 'text-blue-600 dark:text-blue-400', icon: 'bg-blue-100 dark:bg-blue-800/30' },
-  green: { bg: 'bg-green-50 dark:bg-green-900/20', text: 'text-green-600 dark:text-green-400', icon: 'bg-green-100 dark:bg-green-800/30' },
-  purple: { bg: 'bg-purple-50 dark:bg-purple-900/20', text: 'text-purple-600 dark:text-purple-400', icon: 'bg-purple-100 dark:bg-purple-800/30' },
-  teal: { bg: 'bg-teal-50 dark:bg-teal-900/20', text: 'text-teal-600 dark:text-teal-400', icon: 'bg-teal-100 dark:bg-teal-800/30' },
-  orange: { bg: 'bg-orange-50 dark:bg-orange-900/20', text: 'text-orange-600 dark:text-orange-400', icon: 'bg-orange-100 dark:bg-orange-800/30' },
-  red: { bg: 'bg-red-50 dark:bg-red-900/20', text: 'text-red-600 dark:text-red-400', icon: 'bg-red-100 dark:bg-red-800/30' },
-  primary: { bg: 'bg-[var(--primary-subtle)]', text: 'text-[var(--primary)]', icon: 'bg-[var(--primary-light)]' },
+const tones: Record<Tone, string> = {
+  primary: 'bg-[var(--primary-light)] text-[var(--primary)]',
+  teal: 'bg-[var(--primary-light)] text-[var(--primary)]',
+  blue: 'bg-[var(--info-light)] text-[var(--info)]',
+  green: 'bg-[var(--success-light)] text-[var(--success)]',
+  orange: 'bg-[var(--warning-light)] text-[var(--warning)]',
+  red: 'bg-[var(--danger-light)] text-[var(--danger)]',
+  purple: 'bg-[color-mix(in_srgb,var(--chart-4)_16%,transparent)] text-[var(--chart-4)]',
 };
 
-export function StatsCard({ 
-  title, 
-  value, 
-  icon: Icon, 
-  color = 'primary',
-  subtitle,
-  trend
-}: StatsCardProps) {
-  const colors = colorClasses[color];
-
+export function StatsCard({ title, value, icon: Icon, color = 'primary', subtitle, delta, deltaLabel = 'vs last month' }: StatsCardProps) {
+  const up = (delta ?? 0) > 0;
+  const flat = delta === 0;
   return (
-    <div className="dark:bg-[var(--bg-card)] rounded-xl border border-[var(--border-color)] p-3 sm:p-4 md:p-5 hover:shadow-md transition-all">
-      <div className="flex items-start justify-between mb-2 sm:mb-3">
-        <div className="flex-1 min-w-0">
-          <p className="text-xs font-medium text-[var(--text-tertiary)] uppercase tracking-wide mb-1">
-            {title}
-          </p>
-          <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] mb-1 truncate">
+    <div className="card card-hover p-4 sm:p-5 transition-shadow">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="eyebrow">{title}</p>
+          <p className="mt-2 truncate font-[family-name:var(--font-manrope)] text-2xl font-extrabold text-[var(--text-primary)] sm:text-[1.75rem]">
             {typeof value === 'number' ? value.toLocaleString() : value}
-          </h3>
-          {subtitle && (
-            <p className="text-xs text-[var(--text-secondary)] mt-1">
-              {subtitle}
-            </p>
-          )}
-          {trend && (
-            <div className="flex items-center gap-1 mt-2">
-              <span className={`text-xs font-semibold ${trend.isPositive ? 'text-green-600' : 'text-red-600'}`}>
-                {trend.isPositive ? '↑' : '↓'} {Math.abs(trend.value)}%
-              </span>
-              <span className="text-xs text-[var(--text-tertiary)]">vs last month</span>
-            </div>
-          )}
+          </p>
         </div>
-        <div className={`p-2 sm:p-2.5 rounded-lg ${colors.icon} flex-shrink-0`}>
-          <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${colors.text}`} strokeWidth={2} />
+        <div className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg ${tones[color]}`}>
+          <Icon className="h-[18px] w-[18px]" strokeWidth={2} />
         </div>
+      </div>
+      <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+        {delta !== undefined && delta !== null && (
+          <span
+            className={`inline-flex items-center gap-0.5 font-semibold ${
+              flat ? 'text-[var(--text-tertiary)]' : up ? 'text-[var(--success)]' : 'text-[var(--danger)]'
+            }`}
+          >
+            {flat ? <Minus className="h-3 w-3" /> : up ? <ArrowUpRight className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}
+            {Math.abs(delta).toFixed(delta % 1 === 0 ? 0 : 1)}%
+          </span>
+        )}
+        {delta !== undefined && delta !== null && <span className="text-[var(--text-tertiary)]">{deltaLabel}</span>}
+        {subtitle && <span className="text-[var(--text-secondary)]">{subtitle}</span>}
       </div>
     </div>
   );

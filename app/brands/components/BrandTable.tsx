@@ -66,7 +66,7 @@ function RowActionsMenu({
       {open && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 z-20 mt-1 w-52 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
+          <div className="absolute right-0 z-20 mt-1 w-52 rounded-lg border border-gray-200 bg-[var(--bg-card)] py-1 shadow-lg">
             <MenuItem icon={Eye} label="View" onClick={() => { onView(brand); setOpen(false); }} />
             <MenuItem icon={Pencil} label="Edit" onClick={() => { onEdit(brand); setOpen(false); }} />
             <MenuItem
@@ -139,7 +139,7 @@ function EmptyState({ onAddBrand, onBulkUpload }: { onAddBrand: () => void; onBu
       <div className="mt-5 flex items-center gap-3">
         <button
           onClick={onAddBrand}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--primary)] px-4 py-2 text-sm font-medium text-[var(--on-primary)] hover:bg-[var(--primary-dark)]"
         >
           <Plus className="h-4 w-4" />
           Add Brand
@@ -285,7 +285,7 @@ export function BrandTable({
 
   if (isLoading) {
     return (
-      <div className="space-y-2 rounded-xl border border-gray-200 bg-white p-4">
+      <div className="space-y-2 rounded-xl border border-gray-200 bg-[var(--bg-card)] p-4">
         {Array.from({ length: 6 }).map((_, i) => (
           <div key={i} className="h-12 animate-pulse rounded-lg bg-gray-100" />
         ))}
@@ -295,20 +295,20 @@ export function BrandTable({
 
   if (brands.length === 0) {
     return (
-      <div className="rounded-xl border border-gray-200 bg-white">
+      <div className="rounded-xl border border-gray-200 bg-[var(--bg-card)]">
         <EmptyState onAddBrand={onAddBrand} onBulkUpload={onBulkUpload} />
       </div>
     );
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+    <div className="overflow-hidden rounded-xl border border-gray-200 bg-[var(--bg-card)] shadow-sm">
       {selectedIds.size > 0 && (
         <div className="flex items-center justify-between border-b border-gray-200 bg-blue-50 px-4 py-2.5">
           <span className="text-sm font-medium text-blue-900">{selectedIds.size} selected</span>
           <button
             onClick={onBulkDelete}
-            className="inline-flex items-center gap-1.5 rounded-md bg-white px-3 py-1.5 text-xs font-medium text-red-600 shadow-sm hover:bg-red-50"
+            className="inline-flex items-center gap-1.5 rounded-md bg-[var(--bg-card)] px-3 py-1.5 text-xs font-medium text-red-600 shadow-sm hover:bg-red-50"
           >
             <Trash2 className="h-3.5 w-3.5" />
             Delete Selected

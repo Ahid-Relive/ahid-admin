@@ -156,7 +156,7 @@ function CategoriesContent() {
                         resetForm();
                         setIsCreateModalOpen(true);
                     }}
-                    className="flex items-center gap-2 px-4 py-2.5 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white text-sm font-medium rounded-lg transition-colors shadow-sm"
+                    className="flex items-center gap-2 px-4 py-2.5 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-[var(--on-primary)] text-sm font-medium rounded-lg transition-colors shadow-sm"
                 >
                     <Plus className="w-4 h-4" />
                     Add Category
@@ -220,7 +220,7 @@ function CategoriesContent() {
                                 resetForm();
                                 setIsCreateModalOpen(true);
                             }}
-                            className="mt-5 inline-flex items-center gap-2 px-4 py-2 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white text-sm font-medium rounded-lg transition-colors"
+                            className="mt-5 inline-flex items-center gap-2 px-4 py-2 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-[var(--on-primary)] text-sm font-medium rounded-lg transition-colors"
                         >
                             <Plus className="w-4 h-4" />
                             Add Category
@@ -356,7 +356,7 @@ function CategoriesContent() {
                         <button
                             type="submit"
                             disabled={isCreating}
-                            className="flex items-center gap-2 px-5 py-2 text-sm font-medium text-white bg-[var(--primary)] hover:bg-[var(--primary-dark)] rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                            className="flex items-center gap-2 px-5 py-2 text-sm font-medium text-[var(--on-primary)] bg-[var(--primary)] hover:bg-[var(--primary-dark)] rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                         >
                             {isCreating ? (
                                 <>
@@ -415,7 +415,7 @@ function CategoriesContent() {
                         <button
                             onClick={() => deleteConfirmId && handleDelete(deleteConfirmId)}
                             disabled={isDeleting}
-                            className="flex items-center gap-2 px-5 py-2 text-sm font-medium text-white bg-[var(--danger)] hover:bg-red-600 rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                            className="flex items-center gap-2 px-5 py-2 text-sm font-medium text-white bg-[var(--danger)] hover:bg-[var(--danger-solid)] rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                         >
                             {isDeleting ? (
                                 <>

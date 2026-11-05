@@ -1,7 +1,8 @@
 // page.tsx
 'use client';
 
-import { useMemo, useState } from 'react';
+import { Suspense, useMemo, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import {
@@ -31,7 +32,8 @@ function BrandManagementContent() {
 
   const brands: Brand[] = data?.data ?? [];
 
-  const [filters, setFilters] = useState<BrandFilterState>(DEFAULT_FILTERS);
+  const searchParams = useSearchParams();
+  const [filters, setFilters] = useState<BrandFilterState>({ ...DEFAULT_FILTERS, search: searchParams.get('q') ?? '' });
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isBulkUploadOpen, setIsBulkUploadOpen] = useState(false);
   const [editingBrand, setEditingBrand] = useState<Brand | null>(null);
@@ -85,8 +87,8 @@ function BrandManagementContent() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Brand Management</h1>
-          <p className="mt-0.5 text-sm text-gray-500">
+          <h1 className="text-2xl font-extrabold tracking-tight text-[var(--text-primary)]">Brand Management</h1>
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">
             Create, import, and manage brand listings across Ahid.
           </p>
         </div>
@@ -161,7 +163,9 @@ export default function BrandManagementPage() {
   return (
     <ProtectedRoute>
       <DashboardLayout>
-        <BrandManagementContent />
+        <Suspense fallback={null}>
+          <BrandManagementContent />
+        </Suspense>
       </DashboardLayout>
     </ProtectedRoute>
   );

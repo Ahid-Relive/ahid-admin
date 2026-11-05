@@ -1,102 +1,276 @@
 @import "tailwindcss";
 
+/* `dark:` follows the .dark class (set by ThemeContext), not the OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens — shared language with the Ahid website (teal + ink) */
+/* ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #1F2937;
-  
-  /* Primary colors - More subtle */
-  --primary: #208E85;
-  --primary-dark: #1a7269;
-  --primary-light: #E8F5F4;
-  --primary-subtle: #F0F9F8;
-  
-  /* Status colors */
-  --success: #10B981;
-  --success-light: #D1FAE5;
-  --warning: #F59E0B;
-  --warning-light: #FEF3C7;
-  --danger: #EF4444;
-  --danger-light: #FEE2E2;
-  --info: #3B82F6;
-  --info-light: #DBEAFE;
-  
-  /* Status specific */
-  --verified: #10B981;
-  --pending: #F59E0B;
-  --inactive: #9CA3AF;
-  
-  /* Backgrounds */
-  --bg-primary: #F9FAFB;
-  --bg-secondary: #F3F4F6;
-  --bg-card: #FFFFFF;
-  --bg-hover: #F9FAFB;
-  --sidebar-bg: #FFFFFF;
-  --sidebar-active: #F0F9F8;
-  
+  color-scheme: light;
+
+  --background: #f5faf9;
+  --foreground: #0f2f2d;
+
+  /* Brand */
+  --primary: #0e8a7f;
+  --primary-dark: #0b7a70;
+  --primary-light: #dff5f2;
+  --primary-subtle: #f0faf9;
+  --on-primary: #ffffff;
+  --accent: #30d5c7;
+
+  /* Status */
+  --success: #138a5b;
+  --success-light: #e2f6ec;
+  --warning: #b7740a;
+  --warning-light: #fdf1d8;
+  --danger: #c93a2e;
+  --danger-light: #fdecea;
+  --danger-solid: #c93a2e;
+  --info: #2b6fd6;
+  --info-light: #e6effc;
+
+  --verified: #138a5b;
+  --pending: #b7740a;
+  --inactive: #8a9d9a;
+
+  /* Surfaces */
+  --bg-primary: #f5faf9;
+  --bg-secondary: #edf5f4;
+  --bg-card: #ffffff;
+  --bg-hover: #f0f7f6;
+  --bg-input: #ffffff;
+  --sidebar-bg: #ffffff;
+  --sidebar-active: #e6f6f4;
+  --header-bg: rgba(255, 255, 255, 0.85);
+
   /* Text */
-  --text-primary: #111827;
-  --text-secondary: #6B7280;
-  --text-tertiary: #9CA3AF;
-  --text-light: #D1D5DB;
-  
+  --text-primary: #0f2f2d;
+  --text-secondary: #566b69;
+  --text-tertiary: #7f938f;
+  --text-light: #b5c5c2;
+
   /* Borders */
-  --border-color: #E5E7EB;
-  --border-light: #F3F4F6;
-  
+  --border-color: #dfeae8;
+  --border-light: #ecf3f2;
+
   /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-sm: 0 1px 2px 0 rgb(15 47 45 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(15 47 45 / 0.08), 0 1px 2px -1px rgb(15 47 45 / 0.06);
+  --shadow-md: 0 8px 20px -6px rgb(15 47 45 / 0.12), 0 2px 6px -2px rgb(15 47 45 / 0.06);
+  --ring: rgb(48 213 199 / 0.35);
+
+  /* Charts */
+  --chart-1: #14b8a6;
+  --chart-2: #3b82f6;
+  --chart-3: #f59e0b;
+  --chart-4: #8b5cf6;
+  --chart-5: #ef4444;
+  --chart-6: #ec4899;
+  --chart-grid: #e6eeec;
 }
 
-/* Dark theme - Inspired by Linear/Modern UIs */
 .dark {
-  --background: #0A0E1A;
-  --foreground: #E2E8F0;
-  
-  /* Primary colors for dark mode - Teal/Cyan accent */
-  --primary: #22D3BE;
-  --primary-dark: #1AB3A0;
-  --primary-light: #1A3A38;
-  --primary-subtle: #132B2A;
-  
-  /* Status colors - adjusted for dark mode */
-  --success: #34D399;
-  --success-light: #1A3A2B;
-  --warning: #FBBF24;
-  --warning-light: #3A301A;
-  --danger: #F87171;
-  --danger-light: #3A1E1E;
-  --info: #60A5FA;
-  --info-light: #1A2E3A;
-  
-  /* Status specific */
-  --verified: #34D399;
-  --pending: #FBBF24;
-  --inactive: #64748B;
-  
-  /* Backgrounds - Darker, more cohesive palette */
-  --bg-primary: #0A0E1A;
-  --bg-secondary: #141824;
-  --bg-card: #141824;
-  --bg-hover: #1E2430;
-  --sidebar-bg: #0D111D;
-  --sidebar-active: #1A3A38;
-  
-  /* Text - Better contrast */
-  --text-primary: #E2E8F0;
-  --text-secondary: #94A3B8;
-  --text-tertiary: #64748B;
-  --text-light: #475569;
-  
-  /* Borders - Subtle */
-  --border-color: #1E2430;
-  --border-light: #151A26;
-  
-  /* Shadows - Very subtle in dark mode */
+  color-scheme: dark;
+
+  --background: #0b1211;
+  --foreground: #e9f4f2;
+
+  --primary: #30d5c7;
+  --primary-dark: #22c4b6;
+  --primary-light: #123a37;
+  --primary-subtle: #0f2625;
+  --on-primary: #06201e;
+  --accent: #30d5c7;
+
+  --success: #4ade9c;
+  --success-light: #11301f;
+  --warning: #fbbf4a;
+  --warning-light: #332607;
+  --danger: #fda29b;
+  --danger-light: #2d1715;
+  --danger-solid: #d9443a;
+  --info: #7db0ff;
+  --info-light: #14233f;
+
+  --verified: #4ade9c;
+  --pending: #fbbf4a;
+  --inactive: #6f8683;
+
+  --bg-primary: #0b1211;
+  --bg-secondary: #101a19;
+  --bg-card: #121b1a;
+  --bg-hover: #182524;
+  --bg-input: #0e1716;
+  --sidebar-bg: #0e1615;
+  --sidebar-active: #123a37;
+  --header-bg: rgba(11, 18, 17, 0.85);
+
+  --text-primary: #e9f4f2;
+  --text-secondary: #9bb1ae;
+  --text-tertiary: #6f8683;
+  --text-light: #3f5452;
+
+  --border-color: #22312f;
+  --border-light: #1a2726;
+
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
-  --shadow: 0 2px 4px 0 rgb(0 0 0 / 0.5), 0 1px 2px -1px rgb(0 0 0 / 0.5);
-  --shadow-md: 0 4px 8px -2px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.5);
+  --shadow: 0 2px 4px 0 rgb(0 0 0 / 0.45), 0 1px 2px -1px rgb(0 0 0 / 0.45);
+  --shadow-md: 0 10px 24px -8px rgb(0 0 0 / 0.6), 0 2px 6px -2px rgb(0 0 0 / 0.5);
+  --ring: rgb(48 213 199 / 0.3);
+
+  --chart-1: #2dd4bf;
+  --chart-2: #60a5fa;
+  --chart-3: #fbbf24;
+  --chart-4: #a78bfa;
+  --chart-5: #f87171;
+  --chart-6: #f472b6;
+  --chart-grid: #1f2d2b;
+
+  /* Tailwind palette remapped so legacy gray/red/green… utilities stay legible */
+  --color-gray-50: #121b1a;
+  --color-slate-50: #121b1a;
+  --color-gray-100: #172423;
+  --color-slate-100: #172423;
+  --color-gray-200: #22312f;
+  --color-slate-200: #22312f;
+  --color-gray-300: #2f4341;
+  --color-slate-300: #2f4341;
+  --color-gray-400: #6f8683;
+  --color-slate-400: #6f8683;
+  --color-gray-500: #8ba3a0;
+  --color-slate-500: #8ba3a0;
+  --color-gray-600: #a3b8b5;
+  --color-slate-600: #a3b8b5;
+  --color-gray-700: #c5d6d3;
+  --color-slate-700: #c5d6d3;
+  --color-gray-800: #dce9e7;
+  --color-slate-800: #dce9e7;
+  --color-gray-900: #eaf5f3;
+  --color-slate-900: #eaf5f3;
+  --color-red-50: hsl(4 45% 11%);
+  --color-red-100: hsl(4 45% 15%);
+  --color-red-200: hsl(4 40% 24%);
+  --color-red-300: hsl(4 45% 32%);
+  --color-red-400: hsl(4 70% 60%);
+  --color-red-500: hsl(4 80% 66%);
+  --color-red-600: hsl(4 85% 73%);
+  --color-red-700: hsl(4 90% 79%);
+  --color-red-800: hsl(4 90% 85%);
+  --color-red-900: hsl(4 90% 91%);
+  --color-green-50: hsl(150 45% 11%);
+  --color-green-100: hsl(150 45% 15%);
+  --color-green-200: hsl(150 40% 24%);
+  --color-green-300: hsl(150 45% 32%);
+  --color-green-400: hsl(150 70% 60%);
+  --color-green-500: hsl(150 80% 66%);
+  --color-green-600: hsl(150 85% 73%);
+  --color-green-700: hsl(150 90% 79%);
+  --color-green-800: hsl(150 90% 85%);
+  --color-green-900: hsl(150 90% 91%);
+  --color-amber-50: hsl(40 45% 11%);
+  --color-amber-100: hsl(40 45% 15%);
+  --color-amber-200: hsl(40 40% 24%);
+  --color-amber-300: hsl(40 45% 32%);
+  --color-amber-400: hsl(40 70% 60%);
+  --color-amber-500: hsl(40 80% 66%);
+  --color-amber-600: hsl(40 85% 73%);
+  --color-amber-700: hsl(40 90% 79%);
+  --color-amber-800: hsl(40 90% 85%);
+  --color-amber-900: hsl(40 90% 91%);
+  --color-orange-50: hsl(24 45% 11%);
+  --color-orange-100: hsl(24 45% 15%);
+  --color-orange-200: hsl(24 40% 24%);
+  --color-orange-300: hsl(24 45% 32%);
+  --color-orange-400: hsl(24 70% 60%);
+  --color-orange-500: hsl(24 80% 66%);
+  --color-orange-600: hsl(24 85% 73%);
+  --color-orange-700: hsl(24 90% 79%);
+  --color-orange-800: hsl(24 90% 85%);
+  --color-orange-900: hsl(24 90% 91%);
+  --color-yellow-50: hsl(48 45% 11%);
+  --color-yellow-100: hsl(48 45% 15%);
+  --color-yellow-200: hsl(48 40% 24%);
+  --color-yellow-300: hsl(48 45% 32%);
+  --color-yellow-400: hsl(48 70% 60%);
+  --color-yellow-500: hsl(48 80% 66%);
+  --color-yellow-600: hsl(48 85% 73%);
+  --color-yellow-700: hsl(48 90% 79%);
+  --color-yellow-800: hsl(48 90% 85%);
+  --color-yellow-900: hsl(48 90% 91%);
+  --color-blue-50: hsl(215 45% 11%);
+  --color-blue-100: hsl(215 45% 15%);
+  --color-blue-200: hsl(215 40% 24%);
+  --color-blue-300: hsl(215 45% 32%);
+  --color-blue-400: hsl(215 70% 60%);
+  --color-blue-500: hsl(215 80% 66%);
+  --color-blue-600: hsl(215 85% 73%);
+  --color-blue-700: hsl(215 90% 79%);
+  --color-blue-800: hsl(215 90% 85%);
+  --color-blue-900: hsl(215 90% 91%);
+  --color-purple-50: hsl(265 45% 11%);
+  --color-purple-100: hsl(265 45% 15%);
+  --color-purple-200: hsl(265 40% 24%);
+  --color-purple-300: hsl(265 45% 32%);
+  --color-purple-400: hsl(265 70% 60%);
+  --color-purple-500: hsl(265 80% 66%);
+  --color-purple-600: hsl(265 85% 73%);
+  --color-purple-700: hsl(265 90% 79%);
+  --color-purple-800: hsl(265 90% 85%);
+  --color-purple-900: hsl(265 90% 91%);
+  --color-teal-50: hsl(175 45% 11%);
+  --color-teal-100: hsl(175 45% 15%);
+  --color-teal-200: hsl(175 40% 24%);
+  --color-teal-300: hsl(175 45% 32%);
+  --color-teal-400: hsl(175 70% 60%);
+  --color-teal-500: hsl(175 80% 66%);
+  --color-teal-600: hsl(175 85% 73%);
+  --color-teal-700: hsl(175 90% 79%);
+  --color-teal-800: hsl(175 90% 85%);
+  --color-teal-900: hsl(175 90% 91%);
+  --color-pink-50: hsl(330 45% 11%);
+  --color-pink-100: hsl(330 45% 15%);
+  --color-pink-200: hsl(330 40% 24%);
+  --color-pink-300: hsl(330 45% 32%);
+  --color-pink-400: hsl(330 70% 60%);
+  --color-pink-500: hsl(330 80% 66%);
+  --color-pink-600: hsl(330 85% 73%);
+  --color-pink-700: hsl(330 90% 79%);
+  --color-pink-800: hsl(330 90% 85%);
+  --color-pink-900: hsl(330 90% 91%);
+  --color-indigo-50: hsl(240 45% 11%);
+  --color-indigo-100: hsl(240 45% 15%);
+  --color-indigo-200: hsl(240 40% 24%);
+  --color-indigo-300: hsl(240 45% 32%);
+  --color-indigo-400: hsl(240 70% 60%);
+  --color-indigo-500: hsl(240 80% 66%);
+  --color-indigo-600: hsl(240 85% 73%);
+  --color-indigo-700: hsl(240 90% 79%);
+  --color-indigo-800: hsl(240 90% 85%);
+  --color-indigo-900: hsl(240 90% 91%);
+  --color-cyan-50: hsl(190 45% 11%);
+  --color-cyan-100: hsl(190 45% 15%);
+  --color-cyan-200: hsl(190 40% 24%);
+  --color-cyan-300: hsl(190 45% 32%);
+  --color-cyan-400: hsl(190 70% 60%);
+  --color-cyan-500: hsl(190 80% 66%);
+  --color-cyan-600: hsl(190 85% 73%);
+  --color-cyan-700: hsl(190 90% 79%);
+  --color-cyan-800: hsl(190 90% 85%);
+  --color-cyan-900: hsl(190 90% 91%);
+  --color-emerald-50: hsl(160 45% 11%);
+  --color-emerald-100: hsl(160 45% 15%);
+  --color-emerald-200: hsl(160 40% 24%);
+  --color-emerald-300: hsl(160 45% 32%);
+  --color-emerald-400: hsl(160 70% 60%);
+  --color-emerald-500: hsl(160 80% 66%);
+  --color-emerald-600: hsl(160 85% 73%);
+  --color-emerald-700: hsl(160 90% 79%);
+  --color-emerald-800: hsl(160 90% 85%);
+  --color-emerald-900: hsl(160 90% 91%);
+
+
 }
 
 @theme inline {
@@ -109,109 +283,288 @@
   --color-warning: var(--warning);
   --color-danger: var(--danger);
   --color-info: var(--info);
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+html {
+  background: var(--bg-primary);
 }
 
 body {
   background: var(--bg-primary);
-  color: var(--foreground);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: var(--text-primary);
+  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 14px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Smooth theme transitions */
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 200ms;
+/* Smooth theme switching only on surfaces — never on transforms/layout */
+body,
+.card,
+.surface,
+header,
+aside,
+input,
+select,
+textarea,
+button,
+table,
+th,
+td {
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--border-color) var(--bg-primary);
+  scrollbar-color: var(--border-color) transparent;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
-
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
   background: var(--border-color);
-  border-radius: 3px;
+  border-radius: 999px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-tertiary);
 }
 
-/* Typography improvements */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
-  line-height: 1.3;
+::selection {
+  background: var(--ring);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-manrope), var(--font-jakarta), sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
 }
 
-h1 {
-  font-size: 1.875rem;
-  letter-spacing: -0.025em;
+/* Form controls follow the theme everywhere (fixes white inputs in dark mode) */
+input:not([type='checkbox']):not([type='radio']):not([type='file']):not([type='range']),
+select,
+textarea {
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-tertiary);
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+input[type='checkbox'],
+input[type='radio'] {
+  accent-color: var(--primary);
+}
+option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
-h2 {
-  font-size: 1.5rem;
-  letter-spacing: -0.025em;
-}
-
-h3 {
-  font-size: 1.25rem;
-}
-
-/* Utility classes */
-.text-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
-}
-
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-.text-base {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-}
-
+/* ------------------------------------------------------------------ */
+/*  Components                                                         */
+/* ------------------------------------------------------------------ */
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
+  border-radius: 0.875rem;
   box-shadow: var(--shadow-sm);
 }
 
-.card:hover {
-  box-shadow: var(--shadow);
+.card-hover:hover {
+  box-shadow: var(--shadow-md);
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--border-color));
 }
 
-/* Animations */
+.section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.section-sub {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.6rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--bg-hover);
+}
+.btn-ghost {
+  color: var(--text-secondary);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+.btn-danger {
+  background: var(--danger-solid);
+  color: #fff;
+}
+.btn-danger:hover:not(:disabled) {
+  filter: brightness(0.92);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.badge-success {
+  background: var(--success-light);
+  color: var(--success);
+}
+.badge-warning {
+  background: var(--warning-light);
+  color: var(--warning);
+}
+.badge-danger {
+  background: var(--danger-light);
+  color: var(--danger);
+}
+.badge-info {
+  background: var(--info-light);
+  color: var(--info);
+}
+.badge-neutral {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th {
+  text-align: left;
+  padding: 0.65rem 1rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+.data-table td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+}
+.data-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.data-table tbody tr:hover td {
+  background: var(--bg-hover);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Motion                                                             */
+/* ------------------------------------------------------------------ */
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
 .animate-slide-in {
   animation: slideIn 0.3s ease-out;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-hover) 37%, var(--bg-secondary) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 0.5rem;
+}
+@keyframes shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

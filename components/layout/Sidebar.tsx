@@ -12,6 +12,8 @@ import {
   LogOut,
   ChevronDown,
   Layers,
+  Flag,
+  Search,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useState } from 'react';
@@ -51,6 +53,12 @@ const navigation: NavItem[] = [
         permission: 'canViewAnalytics',
       },
       {
+        name: 'Search Insights',
+        href: '/analytics/search',
+        icon: Search,
+        permission: 'canViewAnalytics',
+      },
+      {
         name: 'Post Statistics',
         href: '/analytics/posts',
         icon: FileText,
@@ -59,15 +67,20 @@ const navigation: NavItem[] = [
     ],
   },
   {
+    name: 'Moderation',
+    href: '/reports',
+    icon: Flag,
+  },
+  {
     name: 'Categories',
     href: '/categories',
     icon: Layers,
     permission: 'canManageCategories',
   },
   {
-    name:'Brands',
-    href:'/brands',
-    icon:Building2,
+    name: 'Brands',
+    href: '/brands',
+    icon: Building2,
   },
   {
     name: 'Admin Management',
@@ -103,12 +116,13 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
 
   const isActive = (href: string): boolean => {
     if (href === '/dashboard') return pathname === '/dashboard';
-    return pathname?.startsWith(href) || false;
+    if (href === '/analytics') return pathname?.startsWith('/analytics') || false;
+    return pathname === href || pathname?.startsWith(href + '/') || false;
   };
 
   return (
     <div
-      className={`flex flex-col h-full dark:bg-[var(--sidebar-bg)] bg-[var(--sidebar-bg)] border-r border-[var(--border-color)] w-64 transition-all duration-300 fixed lg:static inset-y-0 left-0 z-50 ${
+      className={`flex flex-col h-full bg-[var(--sidebar-bg)] border-r border-[var(--border-color)] w-64 transition-all duration-300 fixed lg:static inset-y-0 left-0 z-50 ${
         isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       }`}
     >
@@ -156,12 +170,12 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
                       onClick={() => toggleExpanded(item.name)}
                       className={`w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg transition-all ${
                         active
-                          ? 'bg-[var(--sidebar-active)] text-[var(--primary)]'
+                          ? 'bg-[var(--sidebar-active)] text-[var(--primary)] font-semibold'
                           : 'text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
-                        <item.icon className="w-4.5 h-4.5" />
+                        <item.icon className="w-[18px] h-[18px]" />
                         <span>{item.name}</span>
                       </div>
                       <ChevronDown
@@ -183,7 +197,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
                                 onClick={handleLinkClick}
                                 className={`flex items-center gap-2.5 px-3 py-2 text-sm font-medium rounded-lg transition-all ${
                                   childActive
-                                    ? 'bg-[var(--sidebar-active)] text-[var(--primary)]'
+                                    ? 'bg-[var(--sidebar-active)] text-[var(--primary)] font-semibold'
                                     : 'text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                                 }`}
                               >
@@ -202,11 +216,11 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
                     onClick={handleLinkClick}
                     className={`flex items-center gap-2.5 px-3 py-2 text-sm font-medium rounded-lg transition-all ${
                       active
-                        ? 'bg-[var(--sidebar-active)] text-[var(--primary)]'
+                        ? 'bg-[var(--sidebar-active)] text-[var(--primary)] font-semibold'
                         : 'text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                     }`}
                   >
-                    <item.icon className="w-4.5 h-4.5" />
+                    <item.icon className="w-[18px] h-[18px]" />
                     <span>{item.name}</span>
                   </Link>
                 )}
@@ -219,7 +233,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
       {/* User Profile & Logout */}
       <div className="border-t border-[var(--border-color)] p-3 sm:p-4">
         <div className="flex items-center gap-2 sm:gap-3 mb-3 p-2 rounded-lg bg-[var(--bg-hover)]">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[var(--primary-light)] flex items-center justify-center text-[var(--primary)] text-xs font-bold flex-shrink-0">
             {admin?.firstName?.[0]}{admin?.lastName?.[0]}
           </div>
           <div className="flex-1 min-w-0">
@@ -227,14 +241,13 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
               {admin?.firstName} {admin?.lastName}
             </p>
             <p className="text-xs text-[var(--text-tertiary)] truncate">
-              {admin?.role.replace('_', ' ')}
+              {admin?.role?.replace('_', ' ')}
             </p>
           </div>
         </div>
         <button
           onClick={logout}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg transition-all hover:opacity-90"
-          style={{ backgroundColor: 'var(--danger)' }}
+          className="btn btn-secondary w-full !text-[var(--danger)] hover:!bg-[var(--danger-light)]"
         >
           <LogOut className="w-4 h-4" />
           <span>Logout</span>

@@ -60,7 +60,7 @@ export function DuplicateDetection({ duplicateRows, onResolve }: DuplicateDetect
         </button>
         <button
           onClick={() => onResolve('replace')}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+          className="rounded-lg bg-[var(--primary)] px-4 py-2 text-sm font-medium text-[var(--on-primary)] hover:bg-[var(--primary-dark)]"
         >
           Continue Anyway
         </button>

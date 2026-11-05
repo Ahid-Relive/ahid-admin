@@ -1,15 +1,23 @@
 'use client';
 
-export function LoadingSkeleton() {
+export function LoadingSkeleton({ cards = 4 }: { cards?: number }) {
   return (
-    <div className="animate-pulse">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="dark:bg-[var(--bg-card)] rounded-xl p-6 h-32 border border-[var(--border-color)]">
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-4"></div>
-            <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+    <div className="space-y-6" aria-busy="true">
+      <div className="space-y-2">
+        <div className="skeleton h-7 w-48" />
+        <div className="skeleton h-4 w-80 max-w-full" />
+      </div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: cards }).map((_, i) => (
+          <div key={i} className="card h-[110px] p-5">
+            <div className="skeleton mb-4 h-3 w-1/2" />
+            <div className="skeleton h-7 w-2/3" />
           </div>
         ))}
+      </div>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="card skeleton h-72" />
+        <div className="card skeleton h-72" />
       </div>
     </div>
   );
@@ -17,13 +25,9 @@ export function LoadingSkeleton() {
 
 export function TableSkeleton({ rows = 5 }: { rows?: number }) {
   return (
-    <div className="animate-pulse">
+    <div className="space-y-3 p-4">
       {Array.from({ length: rows }).map((_, i) => (
-        <div key={i} className="flex gap-4 py-4 border-b border-[var(--border-color)]">
-          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded flex-1"></div>
-          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded flex-1"></div>
-          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded flex-1"></div>
-        </div>
+        <div key={i} className="skeleton h-5 w-full" />
       ))}
     </div>
   );

@@ -142,7 +142,7 @@ export function PlacesAutocomplete({
 
   const inputClass =
     className ??
-    'w-full rounded-lg border border-gray-300 px-3 py-2 pr-9 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500';
+    'w-full rounded-lg border border-gray-300 px-3 py-2 pr-9 text-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]';
 
   return (
     <div ref={containerRef} className="relative">
@@ -161,7 +161,7 @@ export function PlacesAutocomplete({
       </div>
 
       {isOpen && predictions.length > 0 && (
-        <ul className="absolute z-50 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg">
+        <ul className="absolute z-50 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border border-gray-200 bg-[var(--bg-card)] shadow-lg">
           {predictions.map((p) => (
             <li
               key={p.placeId}
