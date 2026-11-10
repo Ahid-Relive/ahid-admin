@@ -19,7 +19,7 @@ import { ChartTooltip, CHART_COLORS } from '@/lib/utils/chartStyles';
 import { mergeTrends, monthOverMonth, pct } from '@/lib/utils/trends';
 import { useAuth } from '@/contexts/AuthContext';
 import {
-  useGetBrandStatsQuery, useGetDashboardStatsQuery, useGetPostStatsQuery, useGetUserStatsQuery,
+  useGetBrandStatsQuery, useGetDashboardStatsQuery, useGetPostStatsQuery, useGetStorageStatsQuery, useGetUserStatsQuery,
 } from '@/lib/features/stats/statsApi';
 import { useGetSearchMetricsQuery } from '@/lib/features/search/searchApi';
 import { useGetReportsQuery } from '@/lib/features/reports/reportsApi';
@@ -86,6 +86,7 @@ function DashboardContent() {
   const brandStats = useGetBrandStatsQuery(undefined, { skip: !canAnalytics });
   const posts = useGetPostStatsQuery(undefined, { skip: !canAnalytics });
   const search = useGetSearchMetricsQuery(days, { skip: !canAnalytics });
+  const storage = useGetStorageStatsQuery(undefined, { skip: !canAnalytics });
   const pending = useGetReportsQuery({ status: 'pending', limit: 1 });
   const review = useGetReportsQuery({ status: 'under_review', limit: 1 });
   const allBrands = useGetAllBrandsQuery();
@@ -120,7 +121,7 @@ function DashboardContent() {
   );
 
   const refreshAll = () => {
-    dash.refetch(); users.refetch(); brandStats.refetch(); posts.refetch(); search.refetch();
+    dash.refetch(); storage.refetch(); users.refetch(); brandStats.refetch(); posts.refetch(); search.refetch();
     pending.refetch(); review.refetch(); allBrands.refetch();
   };
   const refreshing = [dash, users, brandStats, posts, search, pending, review, allBrands].some((q) => q.isFetching);
@@ -299,6 +300,37 @@ function DashboardContent() {
           ) : <EmptyState message="No location data" />}
         </Card>
       </div>
+
+      {/* Media storage */}
+      {canAnalytics && storage.data?.data?.supported && (() => {
+        const st = storage.data!.data;
+        const pctUsed = st.percentOfFreeTier ?? 0;
+        const tone = pctUsed >= 100 ? 'var(--danger-solid)' : pctUsed >= 70 ? 'var(--warning)' : 'var(--primary)';
+        const fmt = (b = 0) => (b >= 1024 ** 3 ? `${(b / 1024 ** 3).toFixed(2)} GB` : `${(b / 1024 ** 2).toFixed(1)} MB`);
+        const folders = Object.entries(st.folders ?? {}).sort((a, b) => b[1].bytes - a[1].bytes).slice(0, 5);
+        return (
+          <Card title="Media storage" subtitle={`${st.provider.toUpperCase()} · ${(st.objects ?? 0).toLocaleString()} files · checked ${st.checkedAt ? formatDistanceToNow(new Date(st.checkedAt), { addSuffix: true }) : ''}`}>
+            <div className="flex flex-wrap items-end justify-between gap-2">
+              <p className="font-[family-name:var(--font-manrope)] text-2xl font-extrabold text-[var(--text-primary)]">
+                {fmt(st.bytes)} <span className="text-sm font-semibold text-[var(--text-tertiary)]">of {fmt(st.freeTierBytes)} free</span>
+              </p>
+              <span className={`badge ${pctUsed >= 100 ? 'badge-danger' : pctUsed >= 70 ? 'badge-warning' : 'badge-success'}`}>
+                {pctUsed >= 100 ? `Est. $${(st.estimatedMonthlyCostUsd ?? 0).toFixed(2)}/mo over free tier` : `${pctUsed.toFixed(1)}% used`}
+              </span>
+            </div>
+            <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-[var(--bg-secondary)]" role="progressbar" aria-valuenow={Math.min(100, pctUsed)} aria-valuemin={0} aria-valuemax={100}>
+              <div className="h-full rounded-full" style={{ width: `${Math.min(100, pctUsed)}%`, background: tone }} />
+            </div>
+            {folders.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {folders.map(([name, f]) => (
+                  <span key={name} className="badge badge-neutral">{name} · {fmt(f.bytes)}</span>
+                ))}
+              </div>
+            )}
+          </Card>
+        );
+      })()}
 
       {/* Leaderboards */}
       {canAnalytics && (

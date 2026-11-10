@@ -133,6 +133,22 @@ interface PostStats {
   };
 }
 
+export interface StorageStats {
+  success: boolean;
+  data: {
+    provider: string;
+    supported: boolean;
+    bytes?: number;
+    objects?: number;
+    freeTierBytes?: number;
+    percentOfFreeTier?: number;
+    overFreeTierBytes?: number;
+    estimatedMonthlyCostUsd?: number;
+    folders?: Record<string, { bytes: number; objects: number }>;
+    checkedAt?: string;
+  };
+}
+
 export const statsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getDashboardStats: builder.query<DashboardStats, void>({
@@ -147,6 +163,10 @@ export const statsApi = apiSlice.injectEndpoints({
       query: () => '/admin/stats/brands',
       providesTags: ['Stats'],
     }),
+    getStorageStats: builder.query<StorageStats, boolean | void>({
+      query: (refresh) => `/admin/stats/storage${refresh ? '?refresh=1' : ''}`,
+      providesTags: ['Stats'],
+    }),
     getPostStats: builder.query<PostStats, void>({
       query: () => '/admin/stats/posts',
       providesTags: ['Stats'],
@@ -159,4 +179,5 @@ export const {
   useGetUserStatsQuery,
   useGetBrandStatsQuery,
   useGetPostStatsQuery,
+  useGetStorageStatsQuery,
 } = statsApi;
