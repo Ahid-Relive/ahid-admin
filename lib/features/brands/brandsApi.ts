@@ -1,4 +1,5 @@
 import { apiSlice } from '../api/apiSlice';
+import { buildApiQueryString, DEFAULT_LIST_PARAMS, type BrandListParams } from '@/app/brands/utils/listQuery';
 
 interface Location {
   type: 'Point';
@@ -111,6 +112,17 @@ interface UpdateBrandRequest {
   isClaimed?: boolean;
 }
 
+/** GET /brands/brands-for-admin (paginated). `count` = rows on this page; `total` = all matches. */
+export interface BrandListResponse {
+  success: boolean;
+  page: number;
+  limit: number;
+  count: number;
+  total: number;
+  totalPages: number;
+  data: Brand[];
+}
+
 interface DeleteBrandResponse {
   success: boolean;
   message: string;
@@ -135,9 +147,11 @@ export const brandsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Brand'],
     }),
-    getAllBrands: builder.query<{ success: boolean; count: number; data: Brand[] }, void>({
-      query: () => '/brands/brands-for-admin',
+    getAllBrands: builder.query<BrandListResponse, BrandListParams | void>({
+      query: (params) => `/brands/brands-for-admin?${buildApiQueryString(params ?? DEFAULT_LIST_PARAMS)}`,
       providesTags: ['Brand'],
+      // The server does not cache this list; don't let the client hide new/deleted brands either.
+      keepUnusedDataFor: 0,
     }),
     updateBrand: builder.mutation<BrandResponse, UpdateBrandRequest>({
       query: ({ id, ...patch }) => ({

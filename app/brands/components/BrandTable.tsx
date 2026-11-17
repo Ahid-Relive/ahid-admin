@@ -6,9 +6,6 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  SortingState,
   useReactTable,
 } from '@tanstack/react-table';
 import {
@@ -24,8 +21,25 @@ import {
   Building2,
   Upload,
   Plus,
+  CalendarX,
 } from 'lucide-react';
 import type { Brand } from '../types/brand.types';
+import { PAGE_SIZE_OPTIONS, displayBrandName, formatCreatedAtUtc, summaryRange } from '../utils/listQuery';
+
+export interface BrandPagination {
+  page: number;
+  limit: number;
+  /** Rows the server returned for this page */
+  count: number;
+  /** All brands matching the current server filters */
+  total: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  onLimitChange: (limit: number) => void;
+}
+
+/** What to show instead of rows when there are none. */
+export type BrandEmptyKind = 'empty' | 'empty-filtered' | 'no-page-match';
 
 interface BrandTableProps {
   brands: Brand[];
@@ -40,6 +54,9 @@ interface BrandTableProps {
   selectedIds: Set<string>;
   onSelectionChange: (ids: Set<string>) => void;
   onBulkDelete: () => void;
+  pagination: BrandPagination;
+  emptyKind: BrandEmptyKind;
+  onClearFilters: () => void;
 }
 
 function RowActionsMenu({
@@ -126,6 +143,23 @@ function MenuItem({
   );
 }
 
+function FilteredEmptyState({ message, onClearFilters }: { message: string; onClearFilters: () => void }) {
+  return (
+    <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
+      <div className="mb-4 rounded-full bg-gray-100 p-4">
+        <CalendarX className="h-8 w-8 text-gray-500" />
+      </div>
+      <h3 className="text-base font-semibold text-gray-900">{message}</h3>
+      <button
+        onClick={onClearFilters}
+        className="mt-5 inline-flex items-center gap-1.5 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+      >
+        Clear filters
+      </button>
+    </div>
+  );
+}
+
 function EmptyState({ onAddBrand, onBulkUpload }: { onAddBrand: () => void; onBulkUpload: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
@@ -169,9 +203,10 @@ export function BrandTable({
   selectedIds,
   onSelectionChange,
   onBulkDelete,
+  pagination,
+  emptyKind,
+  onClearFilters,
 }: BrandTableProps) {
-  const [sorting, setSorting] = useState<SortingState>([]);
-
   const toggleAll = (checked: boolean) => {
     onSelectionChange(checked ? new Set(brands.map((b) => b._id)) : new Set());
   };
@@ -216,10 +251,14 @@ export function BrandTable({
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={`${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/${brand.profile}`} alt="" className="h-8 w-8 rounded-full object-cover" />
                 ) : (
-                  brand.name?.[0]?.toUpperCase() ?? '?'
+                  brand.name?.trim()?.[0]?.toUpperCase() || '?'
                 )}
               </div>
-              <span className="font-medium text-gray-900">{brand.name}</span>
+              {brand.name?.trim() ? (
+                <span className="font-medium text-gray-900">{brand.name}</span>
+              ) : (
+                <span className="font-medium italic text-gray-400">{displayBrandName(brand.name)}</span>
+              )}
             </div>
           );
         },
@@ -250,9 +289,8 @@ export function BrandTable({
       },
       {
         accessorKey: 'createdAt',
-        header: 'Date Created',
-        cell: ({ row }) =>
-          row.original.createdAt ? new Date(row.original.createdAt).toLocaleDateString() : '—',
+        header: 'Registered (UTC)',
+        cell: ({ row }) => formatCreatedAtUtc(row.original.createdAt),
       },
       {
         id: 'actions',
@@ -272,16 +310,15 @@ export function BrandTable({
     [brands, selectedIds]
   );
 
+  // Rows arrive already sorted and paginated by the server; the table only renders them.
   const table = useReactTable({
     data: brands,
     columns,
-    state: { sorting },
-    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    initialState: { pagination: { pageSize: 20 } },
   });
+
+  const { page, limit, count, total, totalPages, onPageChange, onLimitChange } = pagination;
+  const range = summaryRange(page, limit, count, total);
 
   if (isLoading) {
     return (
@@ -293,10 +330,14 @@ export function BrandTable({
     );
   }
 
-  if (brands.length === 0) {
+  if (brands.length === 0 && emptyKind !== 'no-page-match') {
     return (
       <div className="rounded-xl border border-gray-200 bg-[var(--bg-card)]">
-        <EmptyState onAddBrand={onAddBrand} onBulkUpload={onBulkUpload} />
+        {emptyKind === 'empty-filtered' ? (
+          <FilteredEmptyState message="No brands registered in this date range" onClearFilters={onClearFilters} />
+        ) : (
+          <EmptyState onAddBrand={onAddBrand} onBulkUpload={onBulkUpload} />
+        )}
       </div>
     );
   }
@@ -324,11 +365,9 @@ export function BrandTable({
                 {hg.headers.map((header) => (
                   <th
                     key={header.id}
-                    onClick={header.column.getToggleSortingHandler()}
-                    className="cursor-pointer whitespace-nowrap px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"
+                    className="whitespace-nowrap px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"
                   >
                     {flexRender(header.column.columnDef.header, header.getContext())}
-                    {{ asc: ' ▲', desc: ' ▼' }[header.column.getIsSorted() as string] ?? ''}
                   </th>
                 ))}
               </tr>
@@ -346,24 +385,45 @@ export function BrandTable({
             ))}
           </tbody>
         </table>
+        {brands.length === 0 && (
+          <FilteredEmptyState message="No brands on this page match your search" onClearFilters={onClearFilters} />
+        )}
       </div>
 
-      <div className="flex items-center justify-between border-t border-gray-200 px-4 py-3">
+      <div className="flex flex-col gap-3 border-t border-gray-200 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
         <span className="text-sm text-gray-500">
-          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount() || 1} ·{' '}
-          {brands.length} brands
+          Showing {range.start.toLocaleString()}–{range.end.toLocaleString()} of {range.total.toLocaleString()} brands
         </span>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <label className="flex items-center gap-2 text-sm text-gray-500">
+            Per page
+            <select
+              value={limit}
+              onChange={(e) => onLimitChange(Number(e.target.value))}
+              className="rounded-md border border-gray-300 px-2 py-1 text-sm"
+            >
+              {PAGE_SIZE_OPTIONS.map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
+              ))}
+            </select>
+          </label>
+          <span className="text-sm text-gray-500">
+            Page {page} of {totalPages}
+          </span>
           <button
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            onClick={() => onPageChange(page - 1)}
+            disabled={page <= 1}
+            aria-label="Previous page"
             className="rounded-md border border-gray-300 p-1.5 text-gray-600 disabled:opacity-40"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
           <button
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            onClick={() => onPageChange(page + 1)}
+            disabled={page >= totalPages}
+            aria-label="Next page"
             className="rounded-md border border-gray-300 p-1.5 text-gray-600 disabled:opacity-40"
           >
             <ChevronRight className="h-4 w-4" />
