@@ -29,7 +29,8 @@ const getImageUrl = (imagePath: string | null | undefined): string => {
   }
   
   // Otherwise, construct the full URL
-  const baseUrl = process.env.API_URL?.replace('/api/admin', '') || 'http://localhost:5000';
+  // Proxied to the backend origin by the /backend-files rewrite in next.config.ts
+  const baseUrl = '/backend-files';
   // Normalize path separators to forward slashes
   const normalizedPath = imagePath.replace(/\\/g, '/');
   return `${baseUrl}/${normalizedPath}`;

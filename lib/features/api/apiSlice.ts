@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+// Same-origin path; next.config.ts rewrites /api/* to the server-only API_URL.
+const BASE_URL = '/api';
 
 export const apiSlice = createApi({
   reducerPath: 'api',

@@ -74,7 +74,7 @@ A fully functional, intuitive, and user-friendly admin system for the Ahid platf
 
    Edit `.env.local`:
    ```env
-   NEXT_PUBLIC_API_URL=http://localhost:5000/api/admin
+   API_URL=http://localhost:5000/api
    ```
 
 3. **Run the development server**
@@ -219,7 +219,7 @@ npm start
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `NEXT_PUBLIC_API_URL` | Backend API base URL | `http://localhost:5000/api/admin` |
+| `API_URL` | Backend API base URL (server-only; the browser reaches it via the `/api` rewrite) | `http://localhost:5000/api` |
 
 ## 🐛 Troubleshooting
 
